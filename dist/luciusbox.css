@@ -1602,16 +1602,6 @@ a[data-role="button"]:hover {
  * 15. Streaming-app sizing and brand colour
  * ======================================================================== */
 
-/* Flat black behind everything: Jellyfin's page backdrops (the blurred movie
-   art behind the home screen) are switched off. Item pages keep their own. */
-.backdropContainer {
-    display: none !important;
-}
-
-.backgroundContainer.withBackdrop {
-    opacity: 1 !important;
-}
-
 /* Smaller cards, more per row, like a streaming app */
 .layout-desktop .overflowBackdropCard {
     width: clamp(240px, 16.2vw, 380px) !important;
