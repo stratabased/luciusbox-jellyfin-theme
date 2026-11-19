@@ -67,7 +67,7 @@ html:root[data-theme] {
     --lb-glow: 0 10px 40px -10px rgba(109, 76, 255, 0.65), 0 4px 24px -8px rgba(20, 208, 240, 0.5);
 
     /* Item pages: how far the title and text sit from the left (right of the poster) */
-    --lb-detail-indent: calc(3.3vw + 15vw + 3vw);
+    --lb-detail-indent: 3.3vw;
 
     /* Logos, embedded once by build.py */
     --lb-logo: url("__LOGO__");
@@ -309,6 +309,13 @@ img[src*="icon-transparent"] {
     max-height: none !important;
     object-position: -9999px -9999px;
     background: var(--lb-logo) left center / contain no-repeat;
+}
+
+/* Only Favorites next to the logo: the library shortcuts and their "More"
+   menu are hidden (the libraries are on the home screen and in the menu) */
+.MuiAppBar-root .MuiStack-root > a.MuiButton-root:not(.MuiButton-sizeLarge):not([href*="tab=1"]),
+.MuiAppBar-root .MuiStack-root > button.MuiButton-root[aria-haspopup] {
+    display: none !important;
 }
 
 /* The library you're in */
@@ -641,6 +648,12 @@ img[src*="icon-transparent"] {
     padding-bottom: 100% !important;
 }
 
+/* Cast rows: compact */
+.layout-desktop .scrollSlider .personCard {
+    width: 9em !important;
+    max-width: 9em !important;
+}
+
 /* Cards without artwork */
 .defaultCardBackground1 { background: linear-gradient(135deg, #2c0d4d, #120a2a) !important; }
 .defaultCardBackground2 { background: linear-gradient(135deg, #12235c, #0a1230) !important; }
@@ -740,7 +753,7 @@ a[data-role="button"]:hover {
 
 /* ===========================================================================
  * 9. Item pages (movies, shows, episodes)
- * A full-screen backdrop with the title, info and buttons over it.
+ * A backdrop with the logo, info and buttons over it, Netflix style.
  * ======================================================================== */
 
 .itemBackdrop {
@@ -758,7 +771,7 @@ a[data-role="button"]:hover {
 }
 
 .layout-desktop .itemBackdrop {
-    height: 66vh !important;
+    height: 56vh !important;
 }
 
 /* The info sits on the backdrop instead of in a grey bar */
@@ -772,11 +785,11 @@ a[data-role="button"]:hover {
 
 .layout-desktop .detailRibbon {
     height: auto !important;
-    margin-top: -27vh !important;
-    padding-bottom: 1.5em;
+    margin-top: -30vh !important;
+    padding-bottom: 0.6em;
     flex-direction: column;
     align-items: flex-start !important;
-    gap: 1.2em;
+    gap: 0.9em;
 }
 
 .layout-desktop [dir=ltr] .detailRibbon,
@@ -794,18 +807,20 @@ a[data-role="button"]:hover {
     width: 100%;
 }
 
-/* Poster: smaller, floating over the backdrop */
-.layout-desktop .detailImageContainer .card {
-    width: 15vw !important;
-    top: -40vh !important;
-    margin-bottom: -40vh !important;
+.layout-desktop .detailPagePrimaryContent {
+    padding-top: 0.4em !important;
 }
 
-/* The movie's logo art (when it has one) sits just above the title */
+/* No poster on big screens: the backdrop is the picture, like a streaming app */
+.layout-desktop .detailPagePrimaryContainer > .detailImageContainer {
+    display: none !important;
+}
+
+/* The movie's logo art (when it has one) sits just above the info */
 .layout-desktop .detailLogo {
-    top: 16vh !important;
-    height: 19vh !important;
-    width: 30vw !important;
+    top: 9vh !important;
+    height: 15vh !important;
+    width: 28vw !important;
     left: var(--lb-detail-indent) !important;
     right: auto !important;
     background-position: left bottom !important;
@@ -817,6 +832,18 @@ a[data-role="button"]:hover {
     right: var(--lb-detail-indent) !important;
     left: auto !important;
     background-position: right bottom !important;
+}
+
+/* With logo art showing, the big text title would repeat it: hide it */
+@media (min-width: 68.76em) {
+    .layout-desktop .detailLogo:not(.hide) ~ .detailPageWrapperContainer .nameContainer h1 {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
 }
 
 .detailImageContainer .cardScalable {
