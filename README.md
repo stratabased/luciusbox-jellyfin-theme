@@ -12,14 +12,14 @@ Legacy layouts, on desktop, phones and TV.
   one. Pointing at a card zooms the picture inside its frame and outlines
   it in white, with a white play button.
 - **Movie and show pages:** a full-screen backdrop with the title, info,
-  a white **Play** button and round glass buttons laid over it. The poster
-  floats beside them. Cast photos are round.
-- **Sign-in:** a branded screen with round profile pictures and a frosted
+  a white **Play** button and round outlined buttons laid over it, with the
+  poster beside them. Cast photos are round.
+- **Sign-in:** "Who's watching?" with square profile pictures, and a dark
   password card.
-- **Everything else:** a near-black background with the purple-to-cyan
-  gradient from the logo used sparingly. It has frosted menus and dialogs,
-  pill buttons and inputs, gradient toggles, sliders and progress bars, and
-  the Outfit and Inter fonts.
+- **Everything else:** a flat streaming-app black (#141414), one clean
+  sans font, small crisp corners, grey inputs and menus, and the logo's
+  purple and blue as the highlight colour for progress bars, toggles and
+  the selected menu item.
 
 | Library | Sign-in |
 |---|---|
