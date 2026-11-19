@@ -1,0 +1,842 @@
+/*
+ * Lucius Box 3.0 — a Jellyfin theme
+ * For Jellyfin 12.x (Modern and Legacy layouts, desktop, mobile and TV).
+ *
+ * Paste dist/luciusbox.css into Dashboard → Branding → Custom CSS.
+ * This file is the source: build.py embeds the logos where it says
+ * __LOGO__ and __ICON__. Tweak the colours in the first block.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+/* ---------------------------------------------------------------------------
+ * 1. Palette
+ * Jellyfin 12 builds every theme from --jf-palette-* variables set on
+ * [data-theme]. Overriding them here recolours the whole app, MUI parts
+ * included, whatever theme the user has picked.
+ * ------------------------------------------------------------------------- */
+
+html:root,
+html:root[data-theme] {
+    /* Brand, taken from the logo */
+    --lb-purple: #a62cf3;
+    --lb-violet: #6d4cff;
+    --lb-blue: #2f6bff;
+    --lb-cyan: #14d0f0;
+    --lb-gradient: linear-gradient(120deg, var(--lb-purple) 0%, var(--lb-violet) 38%, var(--lb-blue) 66%, var(--lb-cyan) 100%);
+    --lb-gradient-soft: linear-gradient(120deg, rgba(166, 44, 243, 0.22), rgba(20, 208, 240, 0.18));
+
+    /* Surfaces */
+    --lb-bg: #07070d;
+    --lb-bg-2: #0d0d18;
+    --lb-surface: rgba(22, 22, 38, 0.72);
+    --lb-surface-solid: #141424;
+    --lb-raise: rgba(255, 255, 255, 0.06);
+    --lb-raise-hover: rgba(255, 255, 255, 0.11);
+    --lb-line: rgba(255, 255, 255, 0.08);
+    --lb-line-strong: rgba(255, 255, 255, 0.16);
+
+    /* Text */
+    --lb-text: #f3f3fa;
+    --lb-text-2: rgba(226, 228, 245, 0.7);
+    --lb-text-3: rgba(226, 228, 245, 0.48);
+
+    /* Shape and motion */
+    --lb-radius: 0.9em;
+    --lb-radius-sm: 0.6em;
+    --lb-pill: 999px;
+    --lb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --lb-glow: 0 0.6em 2.2em -0.6em rgba(109, 76, 255, 0.55), 0 0.2em 1em -0.4em rgba(20, 208, 240, 0.45);
+    --lb-shadow: 0 1.2em 3em -1em rgba(0, 0, 0, 0.75);
+    --lb-font: "Plus Jakarta Sans", "Noto Sans", system-ui, sans-serif;
+    --lb-font-display: "Outfit", "Plus Jakarta Sans", "Noto Sans", sans-serif;
+
+    /* Logos (embedded once by build.py) */
+    --lb-logo: url("__LOGO__");
+    --lb-icon: url("__ICON__");
+
+    /* Jellyfin's own variables */
+    --jf-palette-primary-main: var(--lb-violet);
+    --jf-palette-primary-mainChannel: 109 76 255;
+    --jf-palette-primary-dark: #5636e0;
+    --jf-palette-primary-light: #8f78ff;
+    --jf-palette-primary-contrastText: #fff;
+    --jf-palette-secondary-main: var(--lb-cyan);
+    --jf-palette-secondary-mainChannel: 20 208 240;
+    --jf-palette-secondary-contrastText: #04121a;
+    --jf-palette-background-default: var(--lb-bg);
+    --jf-palette-background-defaultChannel: 7 7 13;
+    --jf-palette-background-paper: var(--lb-surface-solid);
+    --jf-palette-background-paperChannel: 20 20 36;
+    --jf-palette-background-defaultImage:
+        radial-gradient(ellipse 70% 55% at 0% 0%, rgba(166, 44, 243, 0.16), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20, 208, 240, 0.11), transparent 70%);
+    --jf-palette-text-primary: var(--lb-text);
+    --jf-palette-text-secondary: var(--lb-text-2);
+    --jf-palette-divider: var(--lb-line);
+    --jf-palette-action-hover: var(--lb-raise);
+    --jf-palette-action-focus: var(--lb-raise-hover);
+    --jf-palette-AppBar-defaultBg: rgba(9, 9, 17, 0.78);
+    --jf-palette-AppBar-transparentBg: rgba(7, 7, 13, 0.35);
+    --jf-palette-AppBar-gradient: none;
+    --jf-palette-FilledInput-bg: var(--lb-raise);
+    --jf-palette-FilledInput-borderColor: var(--lb-line);
+    --jf-palette-Button-inheritContainedBg: var(--lb-raise);
+    --jf-palette-Button-inheritContainedHoverBg: var(--lb-raise-hover);
+    --jf-palette-SnackbarContent-bg: var(--lb-surface-solid);
+    --jf-palette-SnackbarContent-color: var(--lb-text);
+    --jf-card-borderRadius: var(--lb-radius);
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. Base
+ * ------------------------------------------------------------------------- */
+
+html {
+    background-attachment: fixed;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root,
+.MuiMenuItem-root,
+.MuiListItemText-primary,
+.MuiListItemText-secondary {
+    font-family: var(--lb-font);
+}
+
+h1,
+h2,
+h3,
+.sectionTitle,
+.itemName,
+.pageTitle,
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+    font-family: var(--lb-font-display);
+    letter-spacing: -0.01em;
+}
+
+::selection {
+    background: rgba(109, 76, 255, 0.45);
+    color: #fff;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(140, 120, 255, 0.45) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 0.55em;
+    height: 0.55em;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--lb-purple), var(--lb-cyan));
+    border-radius: var(--lb-pill);
+    border: 0.15em solid transparent;
+    background-clip: padding-box;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. Logo
+ * The Jellyfin logo is swapped for Lucius Box. The <img> tricks show our
+ * picture as a background and push the original out of view, which works in
+ * every browser (unlike content: url() on an image).
+ * ------------------------------------------------------------------------- */
+
+/* Legacy layout header */
+.pageTitleWithDefaultLogo {
+    background-image: var(--lb-logo) !important;
+    background-position: left center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 1.7em;
+    width: 8.6em;
+}
+
+.layout-tv .pageTitleWithDefaultLogo {
+    background-image: var(--lb-icon) !important;
+    width: 1.7em;
+}
+
+/* Modern layout: app bar server button and drawer header */
+img[src*="icon-transparent"] {
+    object-position: -9999px -9999px;
+    background: var(--lb-icon) center / contain no-repeat;
+}
+
+.MuiButton-root:has(> .MuiButton-startIcon img[src*="icon-transparent"]) {
+    font-family: var(--lb-font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-radius: var(--lb-pill);
+    padding-inline: 0.7em 1em;
+}
+
+.MuiButton-startIcon img[src*="icon-transparent"] {
+    max-width: 1.6em !important;
+    max-height: 1.6em !important;
+    width: 1.6em;
+    height: 1.6em;
+}
+
+/* Sign-in page: the full logo above the form */
+#loginPage > .padded-left::before {
+    content: "";
+    display: block;
+    width: min(26em, 82vw);
+    aspect-ratio: 2000 / 406;
+    margin: 1.5em auto 2.2em;
+    background: var(--lb-logo) center / contain no-repeat;
+    filter: drop-shadow(0 0.6em 2em rgba(109, 76, 255, 0.35));
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. Header and drawer: frosted glass
+ * ------------------------------------------------------------------------- */
+
+.skinHeader-withBackground,
+.MuiAppBar-root.MuiAppBar-colorDefault,
+.MuiAppBar-root.MuiAppBar-colorPrimary {
+    background-color: var(--jf-palette-AppBar-defaultBg) !important;
+    background-image: none !important;
+    border-bottom: 1px solid var(--lb-line);
+    box-shadow: none !important;
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+}
+
+.skinHeader.semiTransparent {
+    border-bottom-color: transparent;
+}
+
+.layout-tv .skinHeader-withBackground {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.mainDrawer,
+.MuiDrawer-paper {
+    background: rgba(10, 10, 19, 0.9) !important;
+    border-right: 1px solid var(--lb-line) !important;
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+}
+
+.navMenuOption,
+.MuiDrawer-paper .MuiListItemButton-root {
+    border-radius: var(--lb-radius-sm);
+    margin: 0.1em 0.6em;
+    transition: background-color 0.18s var(--lb-ease), color 0.18s var(--lb-ease);
+}
+
+.navMenuOption-selected,
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected,
+.MuiDrawer-paper .MuiListItemButton-root.Mui-selected:hover {
+    background: var(--lb-gradient-soft) !important;
+    color: var(--lb-text) !important;
+    box-shadow: inset 0.2em 0 0 var(--lb-cyan);
+}
+
+.navMenuOption-selected .navMenuOptionIcon,
+.MuiDrawer-paper .Mui-selected .MuiListItemIcon-root {
+    color: var(--lb-cyan);
+}
+
+.navMenuHeader,
+.MuiListSubheader-root {
+    color: var(--lb-text-3) !important;
+    background: transparent !important;
+    font-size: 0.72em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. Tabs
+ * ------------------------------------------------------------------------- */
+
+.emby-tab-button {
+    font-weight: 500;
+    transition: color 0.18s var(--lb-ease);
+}
+
+.emby-tab-button-active {
+    color: var(--lb-text) !important;
+    box-shadow: inset 0 -0.16em 0 var(--lb-cyan);
+}
+
+.MuiTabs-indicator {
+    background: var(--lb-gradient) !important;
+    height: 0.18em !important;
+    border-radius: var(--lb-pill);
+}
+
+.MuiTab-root.Mui-selected {
+    color: var(--lb-text) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 6. Section titles
+ * ------------------------------------------------------------------------- */
+
+.sectionTitle {
+    font-weight: 600;
+    color: var(--lb-text);
+}
+
+.sectionTitle-cards {
+    font-size: 1.3em;
+}
+
+.sectionTitleTextButton .material-icons,
+.sectionTitleTextButton .chevron_right {
+    color: var(--lb-cyan);
+}
+
+/* ---------------------------------------------------------------------------
+ * 7. Cards
+ * ------------------------------------------------------------------------- */
+
+.cardScalable,
+.cardContent,
+.cardImageContainer,
+.blurhash-canvas,
+.cardOverlayContainer {
+    border-radius: var(--lb-radius);
+}
+
+.cardBox:not(.visualCardBox) .cardPadder {
+    background-color: var(--lb-bg-2);
+}
+
+.cardScalable {
+    overflow: hidden;
+    box-shadow: 0 0.5em 1.6em -0.8em rgba(0, 0, 0, 0.8);
+    transition: transform 0.28s var(--lb-ease), box-shadow 0.28s var(--lb-ease);
+}
+
+.cardText {
+    font-weight: 500;
+}
+
+.cardText-secondary {
+    color: var(--lb-text-3);
+}
+
+.cardOverlayContainer {
+    background: linear-gradient(to top, rgba(7, 7, 13, 0.88) 0%, rgba(7, 7, 13, 0.25) 55%, rgba(7, 7, 13, 0.05) 100%) !important;
+}
+
+.cardOverlayButton {
+    transition: transform 0.18s var(--lb-ease), background-color 0.18s var(--lb-ease);
+}
+
+.cardOverlayFab-primary {
+    background: var(--lb-gradient) !important;
+    color: #fff !important;
+    box-shadow: var(--lb-glow);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover .cardScalable {
+        transform: translateY(-0.25em) scale(1.025);
+        box-shadow: var(--lb-shadow), 0 0 0 1px rgba(140, 120, 255, 0.35), var(--lb-glow);
+    }
+
+    .cardOverlayButton:hover {
+        transform: scale(1.12);
+    }
+}
+
+/* Keyboard and TV remote focus */
+.card:focus-visible .cardScalable,
+.card.show-focus:focus .cardScalable {
+    box-shadow: 0 0 0 0.18em var(--lb-cyan), var(--lb-glow);
+}
+
+.visualCardBox {
+    background: var(--lb-surface) !important;
+    border: 1px solid var(--lb-line);
+}
+
+/* Default artwork colours for items without images */
+.defaultCardBackground1 { background: linear-gradient(135deg, #3a1060, #1a1240); }
+.defaultCardBackground2 { background: linear-gradient(135deg, #1b2a6b, #0e1636); }
+.defaultCardBackground3 { background: linear-gradient(135deg, #0b4d66, #0b2033); }
+.defaultCardBackground4 { background: linear-gradient(135deg, #3d1a6e, #0f2a55); }
+.defaultCardBackground5 { background: linear-gradient(135deg, #52158a, #10405a); }
+
+/* Watched ticks, counts and progress */
+.playedIndicator,
+.countIndicator,
+.fullSyncIndicator,
+.mediaSourceIndicator {
+    background: var(--lb-gradient) !important;
+    color: #fff !important;
+    box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.5);
+}
+
+.playedIndicator > svg,
+.countIndicator > svg {
+    fill: #fff !important;
+}
+
+.itemProgressBar {
+    background: rgba(255, 255, 255, 0.14) !important;
+    height: 0.24em;
+    border-radius: var(--lb-pill);
+    overflow: hidden;
+}
+
+.itemProgressBarForeground {
+    background: var(--lb-gradient) !important;
+    border-radius: var(--lb-pill);
+}
+
+/* People: round photos */
+.personCard .cardScalable,
+.personCard .cardContent,
+.personCard .cardImageContainer {
+    border-radius: 50%;
+}
+
+/* ---------------------------------------------------------------------------
+ * 8. Buttons
+ * ------------------------------------------------------------------------- */
+
+.emby-button {
+    border-radius: var(--lb-radius-sm);
+    font-weight: 600;
+    transition: background 0.18s var(--lb-ease), transform 0.18s var(--lb-ease), box-shadow 0.18s var(--lb-ease);
+}
+
+.raised,
+.fab,
+a[data-role="button"] {
+    background: var(--lb-raise) !important;
+    color: var(--lb-text) !important;
+    border: 1px solid var(--lb-line);
+    box-shadow: none !important;
+}
+
+.raised:hover,
+.fab:hover,
+a[data-role="button"]:hover {
+    background: var(--lb-raise-hover) !important;
+}
+
+.button-submit,
+.raised.button-submit,
+.MuiButton-containedPrimary {
+    background: var(--lb-gradient) !important;
+    background-size: 140% 100% !important;
+    color: #fff !important;
+    border: 0 !important;
+    box-shadow: var(--lb-glow) !important;
+}
+
+.button-submit:hover,
+.MuiButton-containedPrimary:hover {
+    background-position: 100% 0 !important;
+    filter: brightness(1.08);
+}
+
+.button-delete {
+    background: linear-gradient(120deg, #e0315a, #b21f6b) !important;
+    color: #fff !important;
+    border: 0 !important;
+}
+
+.button-flat:hover {
+    background: var(--lb-raise) !important;
+}
+
+.button-link {
+    color: var(--lb-cyan) !important;
+}
+
+.emby-button.show-focus:focus,
+.raised.show-focus:focus {
+    background: var(--lb-gradient) !important;
+    color: #fff !important;
+}
+
+.paper-icon-button-light {
+    transition: color 0.18s var(--lb-ease), background-color 0.18s var(--lb-ease), transform 0.18s var(--lb-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .paper-icon-button-light:hover:not(:disabled) {
+        color: var(--lb-cyan) !important;
+        background-color: rgba(20, 208, 240, 0.12) !important;
+    }
+}
+
+.MuiButton-root {
+    border-radius: var(--lb-radius-sm);
+}
+
+.MuiIconButton-root:hover {
+    background-color: rgba(20, 208, 240, 0.12);
+}
+
+/* ---------------------------------------------------------------------------
+ * 9. Item detail page
+ * ------------------------------------------------------------------------- */
+
+.itemBackdrop {
+    position: relative;
+}
+
+.itemBackdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top, var(--lb-bg) 0%, rgba(7, 7, 13, 0.55) 35%, transparent 70%),
+        linear-gradient(to right, rgba(7, 7, 13, 0.6), transparent 45%);
+    pointer-events: none;
+}
+
+.detailRibbon {
+    background-color: rgba(9, 9, 17, 0.72) !important;
+    background-image: none !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--lb-line);
+    border-bottom: 1px solid var(--lb-line);
+}
+
+.layout-tv .detailRibbon {
+    background: none !important;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.itemName,
+.itemName-primary {
+    font-weight: 700;
+    color: var(--lb-text);
+}
+
+.detailImageContainer .cardScalable {
+    box-shadow: var(--lb-shadow), 0 0 0 1px var(--lb-line);
+}
+
+.mediaInfoText,
+.mediaInfoItem.mediaInfoText {
+    background: var(--lb-raise) !important;
+    color: var(--lb-text) !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-pill);
+    padding: 0.15em 0.7em;
+}
+
+.mediaInfoOfficialRating {
+    border: 1px solid rgba(140, 120, 255, 0.6) !important;
+    background: rgba(109, 76, 255, 0.16) !important;
+    color: var(--lb-text) !important;
+    border-radius: var(--lb-radius-sm);
+    padding: 0.1em 0.5em;
+}
+
+.starRatingContainer .material-icons,
+.starIcon {
+    color: #ffc83d;
+}
+
+.detailButton {
+    border-radius: var(--lb-radius-sm);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .detailButton:hover .detailButton-icon {
+        color: var(--lb-cyan);
+    }
+}
+
+.btnPlay .detailButton-icon,
+.mainDetailButtons .btnPlay {
+    color: var(--lb-cyan);
+}
+
+.genres a,
+.itemDetailPage a.button-link,
+.overview-expand {
+    color: var(--lb-cyan) !important;
+}
+
+.itemOverview {
+    color: var(--lb-text-2);
+    line-height: 1.6;
+}
+
+/* ---------------------------------------------------------------------------
+ * 10. Forms
+ * ------------------------------------------------------------------------- */
+
+.emby-input,
+.emby-textarea,
+.emby-select-withcolor {
+    background: var(--lb-raise) !important;
+    border: 1px solid var(--lb-line) !important;
+    border-radius: var(--lb-radius-sm) !important;
+    color: var(--lb-text) !important;
+    transition: border-color 0.18s var(--lb-ease), box-shadow 0.18s var(--lb-ease);
+}
+
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select-withcolor:focus {
+    border-color: var(--lb-violet) !important;
+    box-shadow: 0 0 0 0.2em rgba(109, 76, 255, 0.28) !important;
+    outline: none;
+}
+
+.emby-select-withcolor > option {
+    background: var(--lb-surface-solid);
+    color: var(--lb-text);
+}
+
+.inputLabelFocused,
+.selectLabelFocused,
+.textareaLabelFocused {
+    color: var(--lb-cyan) !important;
+}
+
+.fieldDescription {
+    color: var(--lb-text-3);
+}
+
+.checkboxOutline {
+    border-radius: 0.35em !important;
+    border-color: var(--lb-line-strong) !important;
+}
+
+.emby-checkbox:checked + span + .checkboxOutline {
+    background: var(--lb-gradient) !important;
+    border-color: transparent !important;
+}
+
+.emby-checkbox:checked + span + .checkboxOutline > .checkboxIcon-checked {
+    color: #fff !important;
+}
+
+.emby-checkbox:focus + span + .checkboxOutline {
+    box-shadow: 0 0 0 0.2em rgba(20, 208, 240, 0.3);
+}
+
+/* Toggles */
+.mdl-switch__track {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+.mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__trackContainer > .mdl-switch__track {
+    background: var(--lb-gradient) !important;
+}
+
+.mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__trackContainer > .mdl-switch__thumb {
+    background: #fff !important;
+}
+
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+    background: var(--lb-gradient) !important;
+    opacity: 1 !important;
+}
+
+/* Sliders (volume, seek bar) */
+.mdl-slider-background-lower {
+    background: var(--lb-gradient) !important;
+}
+
+.mdl-slider-background-upper {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.mdl-slider::-webkit-slider-thumb {
+    background: #fff !important;
+    box-shadow: 0 0 0 0.25em rgba(109, 76, 255, 0.35);
+}
+
+.mdl-slider::-moz-range-thumb {
+    background: #fff !important;
+    box-shadow: 0 0 0 0.25em rgba(109, 76, 255, 0.35);
+}
+
+.MuiSlider-track {
+    background: var(--lb-gradient) !important;
+    border: 0 !important;
+}
+
+.MuiSlider-thumb {
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 11. Dialogs, menus and toasts
+ * ------------------------------------------------------------------------- */
+
+.dialog:not([class*="fullscreen"]) {
+    background: rgba(16, 16, 29, 0.94) !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius) !important;
+    box-shadow: var(--lb-shadow);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+.dialog[class*="fullscreen"] {
+    background: var(--lb-bg) !important;
+}
+
+.formDialogHeader:not(.formDialogHeader-clear),
+.formDialogFooter:not(.formDialogFooter-clear) {
+    background: transparent !important;
+    border-color: var(--lb-line) !important;
+}
+
+.actionSheet {
+    background: rgba(16, 16, 29, 0.96) !important;
+    border: 1px solid var(--lb-line);
+}
+
+.actionSheetMenuItem {
+    border-radius: var(--lb-radius-sm);
+}
+
+.actionSheetMenuItem:hover {
+    background: var(--lb-raise) !important;
+}
+
+.MuiPaper-root.MuiMenu-paper,
+.MuiPaper-root.MuiPopover-paper,
+.MuiDialog-paper {
+    background: rgba(16, 16, 29, 0.96) !important;
+    background-image: none !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+.MuiMenuItem-root {
+    border-radius: var(--lb-radius-sm);
+    margin: 0.1em 0.4em;
+}
+
+.MuiMenuItem-root.Mui-selected {
+    background: var(--lb-gradient-soft) !important;
+}
+
+.toast,
+.MuiSnackbarContent-root {
+    background: var(--lb-surface-solid) !important;
+    color: var(--lb-text) !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius-sm) !important;
+    box-shadow: var(--lb-shadow);
+}
+
+.paperList {
+    background: var(--lb-surface) !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius) !important;
+}
+
+.listItem {
+    border-radius: var(--lb-radius-sm);
+}
+
+.listItem:hover,
+.listItem:focus {
+    background: var(--lb-raise) !important;
+}
+
+.listItem-border {
+    border-color: var(--lb-line) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 12. Playback
+ * ------------------------------------------------------------------------- */
+
+.nowPlayingBar,
+.appfooter {
+    background: rgba(9, 9, 17, 0.82) !important;
+    border-top: 1px solid var(--lb-line);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+.videoOsdBottom {
+    background: linear-gradient(to top, rgba(4, 4, 10, 0.92) 0%, rgba(4, 4, 10, 0.55) 60%, transparent 100%) !important;
+}
+
+.osdTitle,
+.osdMediaTitle {
+    font-family: var(--lb-font-display);
+    font-weight: 600;
+}
+
+.upNextDialog,
+.upNextContainer {
+    border-radius: var(--lb-radius);
+}
+
+/* ---------------------------------------------------------------------------
+ * 13. Misc
+ * ------------------------------------------------------------------------- */
+
+.alphaPickerButton-selected {
+    color: var(--lb-cyan) !important;
+    background: rgba(20, 208, 240, 0.12) !important;
+    border-radius: var(--lb-radius-sm);
+}
+
+.emby-scrollbuttons .paper-icon-button-light {
+    background: rgba(9, 9, 17, 0.7);
+    border: 1px solid var(--lb-line);
+}
+
+.programCell-active {
+    background: var(--lb-gradient-soft) !important;
+}
+
+.progressring-spiner,
+.MuiCircularProgress-root {
+    color: var(--lb-cyan) !important;
+    border-color: var(--lb-cyan) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cardScalable,
+    .cardOverlayButton,
+    .emby-button,
+    .paper-icon-button-light {
+        transition: none !important;
+    }
+
+    .card:hover .cardScalable {
+        transform: none !important;
+    }
+}
