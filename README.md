@@ -1,45 +1,81 @@
 # Lucius Box 3.0: a Jellyfin theme
 
-A dark, glassy Jellyfin theme built around the Lucius Box logo. It uses a
-purple-to-cyan gradient, frosted header and drawer, rounded cards that lift on
-hover, gradient buttons and progress bars, and the Outfit and Plus Jakarta
-Sans fonts. The Jellyfin logo in the header, drawer and sign-in page is
-replaced with Lucius Box.
+A full streaming-app makeover for Jellyfin 12. It works in the Modern and
+Legacy layouts, on desktop, phones and TV.
 
-It's built for **Jellyfin 12.x** in the Modern and Legacy layouts, on
-desktop, mobile and TV. It recolours Jellyfin 12's `--jf-palette-*` theme
-variables, so most of the app follows the palette automatically.
+![Home](screenshots/home.jpg)
+![Movie page](screenshots/movie.jpg)
+
+- **Header:** clear over the content. Whatever scrolls underneath fades and
+  blurs. The full Lucius Box logo replaces Jellyfin's.
+- **Home:** big bold row titles, with an "explore" arrow when you point at
+  one. Posters show the artwork only and reveal the title on hover. Cards
+  grow and light up when you point at them, with a white play button.
+  Libraries are cinematic tiles with the name over the picture.
+- **Movie and show pages:** a full-screen backdrop with the title, info,
+  a white **Play** button and round glass buttons laid over it. The poster
+  floats beside them. Cast photos are round.
+- **Sign-in:** a branded screen with round profile pictures and a frosted
+  password card.
+- **Everything else:** a near-black background with the purple-to-cyan
+  gradient from the logo used sparingly. It has frosted menus and dialogs,
+  pill buttons and inputs, gradient toggles, sliders and progress bars, and
+  the Outfit and Inter fonts.
+
+| Sign-in | Password form | Phone |
+|---|---|---|
+| ![](screenshots/sign-in.jpg) | ![](screenshots/sign-in-form.jpg) | ![](screenshots/phone.jpg) |
 
 ## Install
 
-1. Open `dist/luciusbox.css` and copy all of it.
-2. In Jellyfin, go to **Dashboard → Branding → Custom CSS**, paste it, and save.
-3. Hard-refresh the browser (Ctrl+F5).
+**Option 1: link to this repo (it updates itself).** This only works while
+the repo is public. Put this single line in **Dashboard → Branding → Custom
+CSS**, save, then press Ctrl+F5:
 
-The logos are embedded in the file, so it needs no hosting. Custom CSS
-applies to clients that use Jellyfin Web: the browser, the desktop app,
-Android, and the web-based TV apps. It doesn't apply to native apps like
-Swiftfin or Findroid.
+```css
+@import url("https://cdn.jsdelivr.net/gh/stratabased/luciusbox-jellyfin-theme@main/dist/luciusbox.css");
+```
 
-To use it for one account instead of the whole server, paste it under
-**Settings → Display → Custom CSS**.
+jsDelivr caches `@main` for up to 12 hours. To see a new version straight
+away, open the same URL with `purge.jsdelivr.net` in place of
+`cdn.jsdelivr.net`.
 
-## Change it
+**Option 2: paste it.** Copy all of `dist/luciusbox.css` into the same box.
+The logo is embedded, so nothing needs hosting.
 
-- **Colours, corners, fonts:** edit the first block of `src/luciusbox.css`.
-  All the `--lb-*` variables are there.
-- **Logo:** replace `assets/logo-original.png`, then run
-  `python tools/logo.py`. It needs Pillow and NumPy. It turns the black
-  wordmark white for the dark background and writes the small WebP copies.
-- **Build:** run `python tools/build.py` to write `dist/luciusbox.css`.
+Custom CSS applies wherever Jellyfin Web runs: the browser, the desktop
+app, Android, and web-based TV apps. Native apps like Swiftfin and Findroid
+don't load it.
+
+## Options
+
+Add any of these under the `@import` line. Keep the `html:root[data-theme]` part so they win over the theme:
+
+```css
+html:root[data-theme] {
+  --lb-poster-titles: 1;       /* always show titles under posters */
+  --lb-hover-scale: 1.04;      /* calmer hover zoom */
+  --lb-radius: 6px;            /* squarer cards */
+  --lb-violet: #8b5cf6;        /* change the accent colours */
+  --lb-cyan: #22d3ee;
+}
+```
+
+Every setting is in the first block of `src/luciusbox.css`.
+
+## Build
+
+- `python tools/logo.py` makes the dark-background logo from
+  `assets/logo-original.png` and needs Pillow and NumPy.
+- `python tools/build.py` writes `dist/luciusbox.css` with the logos
+  embedded.
 
 ## Files
 
 | Path | What it is |
 |---|---|
-| `dist/luciusbox.css` | The file to paste into Jellyfin |
-| `src/luciusbox.css` | The theme source |
-| `assets/logo-original.png` | The logo as supplied |
-| `assets/logo-dark.png`, `assets/icon.png` | Dark-background versions, full size |
-| `assets/*-embed.webp` | Small copies that get embedded in the CSS |
-| `tools/logo.py`, `tools/build.py` | Logo processing and build |
+| `dist/luciusbox.css` | The theme, ready to use |
+| `src/luciusbox.css` | The source |
+| `assets/` | The original logo and its dark-background versions |
+| `tools/` | Logo processing and build scripts |
+| `screenshots/` | The pictures above, taken on mock pages built from Jellyfin 12's own markup and stylesheets |

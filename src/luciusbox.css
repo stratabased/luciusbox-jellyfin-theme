@@ -1,61 +1,84 @@
 /*
- * Lucius Box 3.0 — a Jellyfin theme
- * For Jellyfin 12.x (Modern and Legacy layouts, desktop, mobile and TV).
+ * Lucius Box 3.0, a Jellyfin theme
+ * For Jellyfin 12.x: Modern and Legacy layouts, on desktop, mobile and TV.
  *
- * Paste dist/luciusbox.css into Dashboard → Branding → Custom CSS.
- * This file is the source: build.py embeds the logos where it says
- * __LOGO__ and __ICON__. Tweak the colours in the first block.
+ * Paste dist/luciusbox.css into Dashboard → Branding → Custom CSS, or
+ * @import it from jsDelivr (see README). This file is the source:
+ * build.py embeds the logos where it says __LOGO__ and __ICON__.
+ *
+ * Contents
+ *   1  Settings: colours, fonts, shapes (edit these)
+ *   2  Jellyfin's palette, mapped to the settings
+ *   3  Base: page, type, scrollbars
+ *   4  Logo
+ *   5  Header and side menu
+ *   6  Home rows and section titles
+ *   7  Cards
+ *   8  Buttons
+ *   9  Item pages
+ *   10 Sign-in
+ *   11 Forms
+ *   12 Dialogs, menus, lists
+ *   13 Player
+ *   14 Small screens and TV
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 
-/* ---------------------------------------------------------------------------
- * 1. Palette
- * Jellyfin 12 builds every theme from --jf-palette-* variables set on
- * [data-theme]. Overriding them here recolours the whole app, MUI parts
- * included, whatever theme the user has picked.
- * ------------------------------------------------------------------------- */
+/* ===========================================================================
+ * 1. Settings
+ * ======================================================================== */
 
 html:root,
 html:root[data-theme] {
-    /* Brand, taken from the logo */
+    /* Brand, from the logo */
     --lb-purple: #a62cf3;
     --lb-violet: #6d4cff;
     --lb-blue: #2f6bff;
     --lb-cyan: #14d0f0;
-    --lb-gradient: linear-gradient(120deg, var(--lb-purple) 0%, var(--lb-violet) 38%, var(--lb-blue) 66%, var(--lb-cyan) 100%);
-    --lb-gradient-soft: linear-gradient(120deg, rgba(166, 44, 243, 0.22), rgba(20, 208, 240, 0.18));
+    --lb-gradient: linear-gradient(115deg, var(--lb-purple) 0%, var(--lb-violet) 35%, var(--lb-blue) 65%, var(--lb-cyan) 100%);
 
     /* Surfaces */
-    --lb-bg: #07070d;
-    --lb-bg-2: #0d0d18;
-    --lb-surface: rgba(22, 22, 38, 0.72);
-    --lb-surface-solid: #141424;
-    --lb-raise: rgba(255, 255, 255, 0.06);
-    --lb-raise-hover: rgba(255, 255, 255, 0.11);
-    --lb-line: rgba(255, 255, 255, 0.08);
-    --lb-line-strong: rgba(255, 255, 255, 0.16);
+    --lb-bg: #050507;
+    --lb-bg-raised: #0e0e14;
+    --lb-glass: rgba(18, 18, 28, 0.72);
+    --lb-glass-strong: rgba(14, 14, 22, 0.92);
+    --lb-chip: rgba(255, 255, 255, 0.08);
+    --lb-chip-hover: rgba(255, 255, 255, 0.16);
+    --lb-line: rgba(255, 255, 255, 0.09);
+    --lb-line-strong: rgba(255, 255, 255, 0.2);
 
     /* Text */
-    --lb-text: #f3f3fa;
-    --lb-text-2: rgba(226, 228, 245, 0.7);
-    --lb-text-3: rgba(226, 228, 245, 0.48);
+    --lb-text: #ffffff;
+    --lb-text-2: rgba(235, 236, 245, 0.72);
+    --lb-text-3: rgba(235, 236, 245, 0.46);
+
+    /* Type */
+    --lb-font: "Inter", "Noto Sans", system-ui, sans-serif;
+    --lb-font-display: "Outfit", "Inter", "Noto Sans", sans-serif;
 
     /* Shape and motion */
-    --lb-radius: 0.9em;
-    --lb-radius-sm: 0.6em;
+    --lb-radius: 10px;
+    --lb-radius-lg: 16px;
     --lb-pill: 999px;
-    --lb-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --lb-glow: 0 0.6em 2.2em -0.6em rgba(109, 76, 255, 0.55), 0 0.2em 1em -0.4em rgba(20, 208, 240, 0.45);
-    --lb-shadow: 0 1.2em 3em -1em rgba(0, 0, 0, 0.75);
-    --lb-font: "Plus Jakarta Sans", "Noto Sans", system-ui, sans-serif;
-    --lb-font-display: "Outfit", "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    --lb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --lb-hover-scale: 1.07;
+    --lb-shadow: 0 18px 50px -12px rgba(0, 0, 0, 0.85);
+    --lb-glow: 0 10px 40px -10px rgba(109, 76, 255, 0.65), 0 4px 24px -8px rgba(20, 208, 240, 0.5);
 
-    /* Logos (embedded once by build.py) */
+    /* Poster titles in rows: 0 = shown only on hover (streaming style), 1 = always shown */
+    --lb-poster-titles: 0;
+
+    /* Item pages: how far the title and text sit from the left (right of the poster) */
+    --lb-detail-indent: calc(3.3vw + 22vw);
+
+    /* Logos, embedded once by build.py */
     --lb-logo: url("__LOGO__");
     --lb-icon: url("__ICON__");
 
-    /* Jellyfin's own variables */
+    /* =======================================================================
+     * 2. Jellyfin's palette (Jellyfin 12 themes are built on these)
+     * ==================================================================== */
     --jf-palette-primary-main: var(--lb-violet);
     --jf-palette-primary-mainChannel: 109 76 255;
     --jf-palette-primary-dark: #5636e0;
@@ -63,37 +86,40 @@ html:root[data-theme] {
     --jf-palette-primary-contrastText: #fff;
     --jf-palette-secondary-main: var(--lb-cyan);
     --jf-palette-secondary-mainChannel: 20 208 240;
-    --jf-palette-secondary-contrastText: #04121a;
+    --jf-palette-secondary-contrastText: #03131a;
     --jf-palette-background-default: var(--lb-bg);
-    --jf-palette-background-defaultChannel: 7 7 13;
-    --jf-palette-background-paper: var(--lb-surface-solid);
-    --jf-palette-background-paperChannel: 20 20 36;
+    --jf-palette-background-defaultChannel: 5 5 7;
+    --jf-palette-background-paper: var(--lb-bg-raised);
+    --jf-palette-background-paperChannel: 14 14 20;
     --jf-palette-background-defaultImage:
-        radial-gradient(ellipse 70% 55% at 0% 0%, rgba(166, 44, 243, 0.16), transparent 70%),
-        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(20, 208, 240, 0.11), transparent 70%);
+        radial-gradient(ellipse 60% 45% at 0% 0%, rgba(166, 44, 243, 0.13), transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(20, 208, 240, 0.08), transparent 70%);
     --jf-palette-text-primary: var(--lb-text);
     --jf-palette-text-secondary: var(--lb-text-2);
     --jf-palette-divider: var(--lb-line);
-    --jf-palette-action-hover: var(--lb-raise);
-    --jf-palette-action-focus: var(--lb-raise-hover);
-    --jf-palette-AppBar-defaultBg: rgba(9, 9, 17, 0.78);
-    --jf-palette-AppBar-transparentBg: rgba(7, 7, 13, 0.35);
+    --jf-palette-action-hover: var(--lb-chip);
+    --jf-palette-action-focus: var(--lb-chip-hover);
+    --jf-palette-AppBar-defaultBg: transparent;
+    --jf-palette-AppBar-transparentBg: transparent;
     --jf-palette-AppBar-gradient: none;
-    --jf-palette-FilledInput-bg: var(--lb-raise);
+    --jf-palette-FilledInput-bg: var(--lb-chip);
     --jf-palette-FilledInput-borderColor: var(--lb-line);
-    --jf-palette-Button-inheritContainedBg: var(--lb-raise);
-    --jf-palette-Button-inheritContainedHoverBg: var(--lb-raise-hover);
-    --jf-palette-SnackbarContent-bg: var(--lb-surface-solid);
+    --jf-palette-Button-inheritContainedBg: var(--lb-chip);
+    --jf-palette-Button-inheritContainedHoverBg: var(--lb-chip-hover);
+    --jf-palette-SnackbarContent-bg: var(--lb-bg-raised);
     --jf-palette-SnackbarContent-color: var(--lb-text);
     --jf-card-borderRadius: var(--lb-radius);
 }
 
-/* ---------------------------------------------------------------------------
- * 2. Base
- * ------------------------------------------------------------------------- */
+/* ===========================================================================
+ * 3. Base
+ * ======================================================================== */
 
 html {
+    background-color: var(--lb-bg);
     background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html,
@@ -107,8 +133,9 @@ textarea,
 .MuiInputBase-root,
 .MuiMenuItem-root,
 .MuiListItemText-primary,
-.MuiListItemText-secondary {
-    font-family: var(--lb-font);
+.MuiListItemText-secondary,
+.MuiTab-root {
+    font-family: var(--lb-font) !important;
 }
 
 h1,
@@ -123,23 +150,23 @@ h3,
 .MuiTypography-h4,
 .MuiTypography-h5,
 .MuiTypography-h6 {
-    font-family: var(--lb-font-display);
-    letter-spacing: -0.01em;
+    font-family: var(--lb-font-display) !important;
+    letter-spacing: -0.015em;
 }
 
 ::selection {
-    background: rgba(109, 76, 255, 0.45);
+    background: rgba(109, 76, 255, 0.5);
     color: #fff;
 }
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(140, 120, 255, 0.45) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
 }
 
 ::-webkit-scrollbar {
-    width: 0.55em;
-    height: 0.55em;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track,
@@ -148,261 +175,502 @@ h3,
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(var(--lb-purple), var(--lb-cyan));
+    background: rgba(255, 255, 255, 0.2);
     border-radius: var(--lb-pill);
-    border: 0.15em solid transparent;
+    border: 3px solid transparent;
     background-clip: padding-box;
 }
 
-/* ---------------------------------------------------------------------------
- * 3. Logo
- * The Jellyfin logo is swapped for Lucius Box. The <img> tricks show our
- * picture as a background and push the original out of view, which works in
- * every browser (unlike content: url() on an image).
- * ------------------------------------------------------------------------- */
-
-/* Legacy layout header */
-.pageTitleWithDefaultLogo {
-    background-image: var(--lb-logo) !important;
-    background-position: left center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 1.7em;
-    width: 8.6em;
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.35);
 }
 
-.layout-tv .pageTitleWithDefaultLogo {
-    background-image: var(--lb-icon) !important;
-    width: 1.7em;
+/* ===========================================================================
+ * 4. Logo
+ * The <img> swaps push Jellyfin's picture out of view and show ours as a
+ * background, which works in every browser.
+ * ======================================================================== */
+
+/* Modern layout: the server button becomes the full Lucius Box logo */
+.MuiButton-root:has(> .MuiButton-startIcon img[src*="icon-transparent"]) {
+    font-size: 0 !important;
+    color: transparent !important;
+    padding: 6px 10px !important;
+    margin-right: 12px;
+    border-radius: var(--lb-radius) !important;
 }
 
-/* Modern layout: app bar server button and drawer header */
+.MuiButton-startIcon:has(> img[src*="icon-transparent"]) {
+    margin: 0 !important;
+}
+
+.MuiButton-startIcon > img[src*="icon-transparent"] {
+    width: 150px !important;
+    height: 30px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-position: -9999px -9999px;
+    background: var(--lb-logo) left center / contain no-repeat;
+}
+
+/* Anywhere else Jellyfin shows its icon: the hexagon */
 img[src*="icon-transparent"] {
     object-position: -9999px -9999px;
     background: var(--lb-icon) center / contain no-repeat;
 }
 
-.MuiButton-root:has(> .MuiButton-startIcon img[src*="icon-transparent"]) {
-    font-family: var(--lb-font-display);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    border-radius: var(--lb-pill);
-    padding-inline: 0.7em 1em;
+/* Legacy layout header */
+.pageTitleWithDefaultLogo {
+    background-image: var(--lb-logo) !important;
+    background-position: left center !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    height: 30px !important;
+    width: 150px !important;
 }
 
-.MuiButton-startIcon img[src*="icon-transparent"] {
-    max-width: 1.6em !important;
-    max-height: 1.6em !important;
-    width: 1.6em;
-    height: 1.6em;
+.layout-tv .pageTitleWithDefaultLogo {
+    background-image: var(--lb-icon) !important;
+    width: 30px !important;
 }
 
-/* Sign-in page: the full logo above the form */
-#loginPage > .padded-left::before {
-    content: "";
-    display: block;
-    width: min(26em, 82vw);
-    aspect-ratio: 2000 / 406;
-    margin: 1.5em auto 2.2em;
-    background: var(--lb-logo) center / contain no-repeat;
-    filter: drop-shadow(0 0.6em 2em rgba(109, 76, 255, 0.35));
-}
+/* ===========================================================================
+ * 5. Header and side menu
+ * Clear over the content with a soft fade, like a streaming app.
+ * ======================================================================== */
 
-/* ---------------------------------------------------------------------------
- * 4. Header and drawer: frosted glass
- * ------------------------------------------------------------------------- */
-
+.skinHeader,
 .skinHeader-withBackground,
-.MuiAppBar-root.MuiAppBar-colorDefault,
-.MuiAppBar-root.MuiAppBar-colorPrimary {
-    background-color: var(--jf-palette-AppBar-defaultBg) !important;
-    background-image: none !important;
-    border-bottom: 1px solid var(--lb-line);
+.skinHeader.semiTransparent,
+.MuiAppBar-root {
+    background: transparent !important;
+    border: 0 !important;
     box-shadow: none !important;
-    backdrop-filter: blur(18px) saturate(1.4);
-    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    color: var(--lb-text) !important;
 }
 
-.skinHeader.semiTransparent {
-    border-bottom-color: transparent;
+/* A dark fade with a blur that eases off downwards, so whatever scrolls
+   underneath stays out of the way without a hard bar */
+.skinHeader::before,
+.MuiAppBar-root::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -28px 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(5, 5, 7, 0.94) 0%, rgba(5, 5, 7, 0.7) 50%, rgba(5, 5, 7, 0) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
 }
 
-.layout-tv .skinHeader-withBackground {
+.layout-tv .skinHeader::before {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
 
+/* Header buttons */
+.MuiAppBar-root .MuiButton-root,
+.skinHeader .headerTabs .emby-tab-button {
+    color: var(--lb-text-2) !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem;
+    border-radius: var(--lb-pill) !important;
+    padding: 6px 14px !important;
+    transition: color 0.2s var(--lb-ease), background-color 0.2s var(--lb-ease);
+}
+
+.MuiAppBar-root .MuiButton-root:hover,
+.skinHeader .headerTabs .emby-tab-button:hover {
+    color: var(--lb-text) !important;
+    background: var(--lb-chip) !important;
+}
+
+.MuiAppBar-root .MuiButton-root.Mui-selected,
+.MuiAppBar-root .MuiButton-root[aria-current="page"],
+.MuiAppBar-root .MuiButton-root.active {
+    color: var(--lb-text) !important;
+    font-weight: 700 !important;
+}
+
+.MuiAppBar-root .MuiIconButton-root,
+.skinHeader .headerButton {
+    color: var(--lb-text) !important;
+    transition: background-color 0.2s var(--lb-ease);
+}
+
+.MuiAppBar-root .MuiIconButton-root:hover,
+.skinHeader .headerButton:hover {
+    background: var(--lb-chip) !important;
+}
+
+.MuiAppBar-root .MuiAvatar-root,
+.headerUserButtonRound {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+/* Tabs under the header (library views) */
+.MuiTabs-root .MuiTab-root,
+.emby-tab-button {
+    color: var(--lb-text-2) !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    transition: color 0.2s var(--lb-ease);
+}
+
+.MuiTabs-root .MuiTab-root.Mui-selected,
+.emby-tab-button-active {
+    color: var(--lb-text) !important;
+}
+
+.MuiTabs-indicator {
+    background: var(--lb-gradient) !important;
+    height: 3px !important;
+    border-radius: 3px;
+}
+
+.emby-tab-button-active {
+    box-shadow: inset 0 -3px 0 var(--lb-violet);
+}
+
+/* Side menu */
 .mainDrawer,
 .MuiDrawer-paper {
-    background: rgba(10, 10, 19, 0.9) !important;
+    background: rgba(8, 8, 12, 0.94) !important;
+    background-image: none !important;
     border-right: 1px solid var(--lb-line) !important;
-    backdrop-filter: blur(22px) saturate(1.4);
-    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
 }
 
 .navMenuOption,
 .MuiDrawer-paper .MuiListItemButton-root {
-    border-radius: var(--lb-radius-sm);
-    margin: 0.1em 0.6em;
-    transition: background-color 0.18s var(--lb-ease), color 0.18s var(--lb-ease);
+    border-radius: var(--lb-radius) !important;
+    margin: 2px 10px !important;
+    color: var(--lb-text-2) !important;
+    transition: background-color 0.2s var(--lb-ease), color 0.2s var(--lb-ease);
+}
+
+.navMenuOption:hover,
+.MuiDrawer-paper .MuiListItemButton-root:hover {
+    background: var(--lb-chip) !important;
+    color: var(--lb-text) !important;
 }
 
 .navMenuOption-selected,
 .MuiDrawer-paper .MuiListItemButton-root.Mui-selected,
 .MuiDrawer-paper .MuiListItemButton-root.Mui-selected:hover {
-    background: var(--lb-gradient-soft) !important;
+    background: linear-gradient(115deg, rgba(166, 44, 243, 0.28), rgba(47, 107, 255, 0.22) 60%, rgba(20, 208, 240, 0.18)) !important;
     color: var(--lb-text) !important;
-    box-shadow: inset 0.2em 0 0 var(--lb-cyan);
+    font-weight: 600;
 }
 
 .navMenuOption-selected .navMenuOptionIcon,
 .MuiDrawer-paper .Mui-selected .MuiListItemIcon-root {
-    color: var(--lb-cyan);
+    color: var(--lb-cyan) !important;
+}
+
+.MuiDrawer-paper .MuiListItemIcon-root,
+.navMenuOptionIcon {
+    color: inherit !important;
 }
 
 .navMenuHeader,
-.MuiListSubheader-root {
-    color: var(--lb-text-3) !important;
+.MuiDrawer-paper .MuiListSubheader-root {
     background: transparent !important;
-    font-size: 0.72em;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    color: var(--lb-text-3) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
-/* ---------------------------------------------------------------------------
- * 5. Tabs
- * ------------------------------------------------------------------------- */
-
-.emby-tab-button {
-    font-weight: 500;
-    transition: color 0.18s var(--lb-ease);
+.MuiDrawer-paper .MuiDivider-root,
+.mainDrawer .sidebarDivider {
+    border-color: var(--lb-line) !important;
+    background: var(--lb-line) !important;
 }
 
-.emby-tab-button-active {
-    color: var(--lb-text) !important;
-    box-shadow: inset 0 -0.16em 0 var(--lb-cyan);
+/* ===========================================================================
+ * 6. Home rows and section titles
+ * ======================================================================== */
+
+.homeSectionsContainer {
+    padding-bottom: 3em;
 }
 
-.MuiTabs-indicator {
-    background: var(--lb-gradient) !important;
-    height: 0.18em !important;
-    border-radius: var(--lb-pill);
+.verticalSection,
+.detailVerticalSection {
+    margin-bottom: 0.4em;
 }
-
-.MuiTab-root.Mui-selected {
-    color: var(--lb-text) !important;
-}
-
-/* ---------------------------------------------------------------------------
- * 6. Section titles
- * ------------------------------------------------------------------------- */
 
 .sectionTitle {
-    font-weight: 600;
-    color: var(--lb-text);
+    color: var(--lb-text) !important;
+    font-weight: 700 !important;
 }
 
 .sectionTitle-cards {
-    font-size: 1.3em;
+    font-size: 1.45rem !important;
+    margin-bottom: 0.15em !important;
 }
 
-.sectionTitleTextButton .material-icons,
+/* "Explore all" chevron appears when you point at the row title */
+.sectionTitleTextButton {
+    gap: 0.25em;
+    color: var(--lb-text) !important;
+}
+
 .sectionTitleTextButton .chevron_right {
-    color: var(--lb-cyan);
+    color: var(--lb-cyan) !important;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.25s var(--lb-ease), transform 0.25s var(--lb-ease);
 }
 
-/* ---------------------------------------------------------------------------
+.sectionTitleTextButton:hover .chevron_right,
+.sectionTitleTextButton:focus .chevron_right {
+    opacity: 1;
+    transform: none;
+}
+
+.layout-tv .sectionTitleTextButton .chevron_right,
+.layout-mobile .sectionTitleTextButton .chevron_right {
+    opacity: 1;
+    transform: none;
+}
+
+/* Room for cards to grow on hover without being cut off */
+.layout-desktop .emby-scroller {
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    margin-top: -0.6em;
+    margin-bottom: -0.6em;
+}
+
+/* ===========================================================================
  * 7. Cards
- * ------------------------------------------------------------------------- */
+ * ======================================================================== */
 
 .cardScalable,
 .cardContent,
 .cardImageContainer,
+.cardPadder,
 .blurhash-canvas,
-.cardOverlayContainer {
-    border-radius: var(--lb-radius);
+.cardOverlayContainer,
+.itemDetailImage {
+    border-radius: var(--lb-radius) !important;
 }
 
 .cardBox:not(.visualCardBox) .cardPadder {
-    background-color: var(--lb-bg-2);
+    background-color: var(--lb-bg-raised) !important;
+}
+
+.cardPadder .cardImageIcon,
+.cardImageIcon {
+    color: rgba(255, 255, 255, 0.18) !important;
 }
 
 .cardScalable {
     overflow: hidden;
-    box-shadow: 0 0.5em 1.6em -0.8em rgba(0, 0, 0, 0.8);
-    transition: transform 0.28s var(--lb-ease), box-shadow 0.28s var(--lb-ease);
+    background: var(--lb-bg-raised);
+    box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.9);
+    transition: transform 0.35s var(--lb-ease), box-shadow 0.35s var(--lb-ease);
+}
+
+.cardBox {
+    transition: transform 0.35s var(--lb-ease);
+}
+
+/* Text under cards */
+.cardFooter {
+    padding-top: 0.35em;
 }
 
 .cardText {
+    color: var(--lb-text) !important;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.cardText-secondary,
+.cardText-secondary * {
+    color: var(--lb-text-3) !important;
     font-weight: 500;
+    font-size: 0.82em;
 }
 
-.cardText-secondary {
-    color: var(--lb-text-3);
+.cardText a.textActionButton {
+    color: inherit !important;
 }
 
+/* Wide cards (continue watching, episodes): text on the left */
+.overflowBackdropCard .cardText,
+.backdropCard .cardText {
+    text-align: left !important;
+    padding-left: 0.15em;
+}
+
+/* Posters in rows: artwork only; the title shows on hover */
+@media (hover: hover) and (pointer: fine) {
+    .scrollSlider .overflowPortraitCard:not(.personCard) .cardFooter {
+        opacity: var(--lb-poster-titles);
+        transition: opacity 0.25s var(--lb-ease);
+    }
+
+    .scrollSlider .overflowPortraitCard:not(.personCard):hover .cardFooter,
+    .scrollSlider .overflowPortraitCard:not(.personCard):focus-within .cardFooter {
+        opacity: 1;
+    }
+}
+
+/* Hover: the card grows, lifts and catches the light */
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        z-index: 5;
+        position: relative;
+    }
+
+    .card:hover .cardScalable {
+        transform: scale(var(--lb-hover-scale));
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), var(--lb-shadow), var(--lb-glow);
+    }
+}
+
+/* Keyboard and remote focus */
+.card:focus-visible .cardScalable,
+.card.show-focus:focus .cardScalable {
+    transform: scale(var(--lb-hover-scale));
+    box-shadow: 0 0 0 3px #fff, var(--lb-glow) !important;
+}
+
+.layout-tv .card:focus .cardScalable {
+    box-shadow: 0 0 0 3px #fff, var(--lb-glow) !important;
+}
+
+/* The hover layer: dark fade, big play button, small round buttons */
 .cardOverlayContainer {
-    background: linear-gradient(to top, rgba(7, 7, 13, 0.88) 0%, rgba(7, 7, 13, 0.25) 55%, rgba(7, 7, 13, 0.05) 100%) !important;
-}
-
-.cardOverlayButton {
-    transition: transform 0.18s var(--lb-ease), background-color 0.18s var(--lb-ease);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.1) 100%) !important;
+    transition: opacity 0.25s var(--lb-ease);
 }
 
 .cardOverlayFab-primary {
-    background: var(--lb-gradient) !important;
-    color: #fff !important;
-    box-shadow: var(--lb-glow);
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #050507 !important;
+    width: 3.1em !important;
+    height: 3.1em !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.6) !important;
+    transition: transform 0.2s var(--lb-ease), background 0.2s var(--lb-ease) !important;
+}
+
+.cardOverlayFab-primary .cardOverlayButtonIcon {
+    color: #050507 !important;
+    font-size: 2em !important;
+}
+
+.cardOverlayFab-primary:hover {
+    transform: scale(1.1);
+    background: #fff !important;
+}
+
+.cardOverlayButton-br .cardOverlayButton {
+    background: rgba(20, 20, 30, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 50% !important;
+    margin-left: 0.3em;
+    padding: 0.35em !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.2s var(--lb-ease), border-color 0.2s var(--lb-ease);
+}
+
+.cardOverlayButton-br .cardOverlayButton:hover {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-color: #fff !important;
+    color: #050507 !important;
+}
+
+.cardOverlayButton-br .cardOverlayButton:hover .cardOverlayButtonIcon {
+    color: #050507 !important;
+}
+
+.cardOverlayButton-br .cardOverlayButtonIcon {
+    font-size: 1.15em !important;
+}
+
+/* Libraries on the home screen: name over the picture */
+.card[data-type="CollectionFolder"] .cardBox,
+.card[data-type="UserView"] .cardBox {
+    position: relative;
+}
+
+.card[data-type="CollectionFolder"] .cardFooter,
+.card[data-type="UserView"] .cardFooter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2.4em 1em 0.9em !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
+    border-radius: 0 0 var(--lb-radius) var(--lb-radius);
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.35s var(--lb-ease);
+}
+
+.card[data-type="CollectionFolder"] .cardText,
+.card[data-type="UserView"] .cardText {
+    font-family: var(--lb-font-display) !important;
+    font-size: 1.3em !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.card[data-type="CollectionFolder"] .cardBox-bottompadded,
+.card[data-type="UserView"] .cardBox-bottompadded {
+    margin-bottom: 0.8em !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .card:hover .cardScalable {
-        transform: translateY(-0.25em) scale(1.025);
-        box-shadow: var(--lb-shadow), 0 0 0 1px rgba(140, 120, 255, 0.35), var(--lb-glow);
-    }
-
-    .cardOverlayButton:hover {
-        transform: scale(1.12);
+    .card[data-type="CollectionFolder"]:hover .cardFooter,
+    .card[data-type="UserView"]:hover .cardFooter {
+        transform: scale(var(--lb-hover-scale));
+        transform-origin: center top;
     }
 }
 
-/* Keyboard and TV remote focus */
-.card:focus-visible .cardScalable,
-.card.show-focus:focus .cardScalable {
-    box-shadow: 0 0 0 0.18em var(--lb-cyan), var(--lb-glow);
-}
-
-.visualCardBox {
-    background: var(--lb-surface) !important;
-    border: 1px solid var(--lb-line);
-}
-
-/* Default artwork colours for items without images */
-.defaultCardBackground1 { background: linear-gradient(135deg, #3a1060, #1a1240); }
-.defaultCardBackground2 { background: linear-gradient(135deg, #1b2a6b, #0e1636); }
-.defaultCardBackground3 { background: linear-gradient(135deg, #0b4d66, #0b2033); }
-.defaultCardBackground4 { background: linear-gradient(135deg, #3d1a6e, #0f2a55); }
-.defaultCardBackground5 { background: linear-gradient(135deg, #52158a, #10405a); }
-
-/* Watched ticks, counts and progress */
+/* Watched ticks, counts, progress */
 .playedIndicator,
 .countIndicator,
 .fullSyncIndicator,
 .mediaSourceIndicator {
     background: var(--lb-gradient) !important;
     color: #fff !important;
-    box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
 }
 
 .playedIndicator > svg,
-.countIndicator > svg {
+.countIndicator > svg,
+.playedIndicator .indicatorIcon {
     fill: #fff !important;
+    color: #fff !important;
+}
+
+.innerCardFooter.fullInnerCardFooter {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent) !important;
+    padding: 1.2em 0.7em 0.6em !important;
 }
 
 .itemProgressBar {
-    background: rgba(255, 255, 255, 0.14) !important;
-    height: 0.24em;
+    background: rgba(255, 255, 255, 0.25) !important;
+    height: 4px !important;
     border-radius: var(--lb-pill);
     overflow: hidden;
 }
@@ -415,40 +683,56 @@ img[src*="icon-transparent"] {
 /* People: round photos */
 .personCard .cardScalable,
 .personCard .cardContent,
-.personCard .cardImageContainer {
-    border-radius: 50%;
+.personCard .cardImageContainer,
+.personCard .cardPadder {
+    border-radius: 50% !important;
 }
 
-/* ---------------------------------------------------------------------------
+.personCard .cardPadder-overflowPortrait {
+    padding-bottom: 100% !important;
+}
+
+/* Cards without artwork */
+.defaultCardBackground1 { background: linear-gradient(135deg, #2c0d4d, #120a2a) !important; }
+.defaultCardBackground2 { background: linear-gradient(135deg, #12235c, #0a1230) !important; }
+.defaultCardBackground3 { background: linear-gradient(135deg, #0a4257, #081a28) !important; }
+.defaultCardBackground4 { background: linear-gradient(135deg, #34155e, #0c2148) !important; }
+.defaultCardBackground5 { background: linear-gradient(135deg, #4a1280, #0d3550) !important; }
+
+.visualCardBox {
+    background: var(--lb-glass) !important;
+    border: 1px solid var(--lb-line);
+}
+
+/* ===========================================================================
  * 8. Buttons
- * ------------------------------------------------------------------------- */
+ * ======================================================================== */
 
 .emby-button {
-    border-radius: var(--lb-radius-sm);
-    font-weight: 600;
-    transition: background 0.18s var(--lb-ease), transform 0.18s var(--lb-ease), box-shadow 0.18s var(--lb-ease);
+    border-radius: var(--lb-pill) !important;
+    font-weight: 600 !important;
+    transition: background 0.2s var(--lb-ease), transform 0.2s var(--lb-ease), box-shadow 0.2s var(--lb-ease), color 0.2s var(--lb-ease);
 }
 
 .raised,
 .fab,
 a[data-role="button"] {
-    background: var(--lb-raise) !important;
+    background: var(--lb-chip) !important;
     color: var(--lb-text) !important;
-    border: 1px solid var(--lb-line);
+    border: 1px solid var(--lb-line) !important;
     box-shadow: none !important;
 }
 
 .raised:hover,
 .fab:hover,
 a[data-role="button"]:hover {
-    background: var(--lb-raise-hover) !important;
+    background: var(--lb-chip-hover) !important;
 }
 
 .button-submit,
 .raised.button-submit,
 .MuiButton-containedPrimary {
     background: var(--lb-gradient) !important;
-    background-size: 140% 100% !important;
     color: #fff !important;
     border: 0 !important;
     box-shadow: var(--lb-glow) !important;
@@ -456,52 +740,59 @@ a[data-role="button"]:hover {
 
 .button-submit:hover,
 .MuiButton-containedPrimary:hover {
-    background-position: 100% 0 !important;
-    filter: brightness(1.08);
+    filter: brightness(1.1);
+    transform: translateY(-1px);
 }
 
 .button-delete {
-    background: linear-gradient(120deg, #e0315a, #b21f6b) !important;
+    background: linear-gradient(115deg, #e5304f, #b0206e) !important;
     color: #fff !important;
     border: 0 !important;
 }
 
 .button-flat:hover {
-    background: var(--lb-raise) !important;
+    background: var(--lb-chip) !important;
 }
 
 .button-link {
+    color: var(--lb-text) !important;
+    font-weight: 600 !important;
+}
+
+.button-link:hover {
     color: var(--lb-cyan) !important;
 }
 
 .emby-button.show-focus:focus,
 .raised.show-focus:focus {
-    background: var(--lb-gradient) !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: #050507 !important;
 }
 
 .paper-icon-button-light {
-    transition: color 0.18s var(--lb-ease), background-color 0.18s var(--lb-ease), transform 0.18s var(--lb-ease);
+    transition: color 0.2s var(--lb-ease), background-color 0.2s var(--lb-ease);
 }
 
 @media (hover: hover) and (pointer: fine) {
     .paper-icon-button-light:hover:not(:disabled) {
-        color: var(--lb-cyan) !important;
-        background-color: rgba(20, 208, 240, 0.12) !important;
+        color: var(--lb-text) !important;
+        background-color: var(--lb-chip-hover) !important;
     }
 }
 
 .MuiButton-root {
-    border-radius: var(--lb-radius-sm);
+    border-radius: var(--lb-pill) !important;
+    text-transform: none !important;
 }
 
 .MuiIconButton-root:hover {
-    background-color: rgba(20, 208, 240, 0.12);
+    background-color: var(--lb-chip);
 }
 
-/* ---------------------------------------------------------------------------
- * 9. Item detail page
- * ------------------------------------------------------------------------- */
+/* ===========================================================================
+ * 9. Item pages (movies, shows, episodes)
+ * A full-screen backdrop with the title, info and buttons over it.
+ * ======================================================================== */
 
 .itemBackdrop {
     position: relative;
@@ -512,110 +803,437 @@ a[data-role="button"]:hover {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(to top, var(--lb-bg) 0%, rgba(7, 7, 13, 0.55) 35%, transparent 70%),
-        linear-gradient(to right, rgba(7, 7, 13, 0.6), transparent 45%);
+        linear-gradient(to top, var(--lb-bg) 0%, rgba(5, 5, 7, 0.75) 22%, rgba(5, 5, 7, 0.1) 60%, rgba(5, 5, 7, 0.35) 100%),
+        linear-gradient(to right, rgba(5, 5, 7, 0.88) 0%, rgba(5, 5, 7, 0.45) 40%, transparent 75%);
     pointer-events: none;
 }
 
+.layout-desktop .itemBackdrop {
+    height: 78vh !important;
+}
+
+/* The info sits on the backdrop instead of in a grey bar */
 .detailRibbon {
-    background-color: rgba(9, 9, 17, 0.72) !important;
-    background-image: none !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid var(--lb-line);
-    border-bottom: 1px solid var(--lb-line);
-}
-
-.layout-tv .detailRibbon {
     background: none !important;
-    border: 0;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
-.itemName,
-.itemName-primary {
-    font-weight: 700;
-    color: var(--lb-text);
+.layout-desktop .detailRibbon {
+    height: auto !important;
+    margin-top: -21em !important;
+    padding-bottom: 1.5em;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1.2em;
+}
+
+.layout-desktop [dir=ltr] .detailRibbon,
+.layout-desktop [dir=ltr] .detailPagePrimaryContent {
+    padding-left: var(--lb-detail-indent) !important;
+}
+
+.layout-desktop [dir=rtl] .detailRibbon,
+.layout-desktop [dir=rtl] .detailPagePrimaryContent {
+    padding-right: var(--lb-detail-indent) !important;
+}
+
+.layout-desktop .infoWrapper {
+    flex: 0 0 auto !important;
+    width: 100%;
+}
+
+/* Poster: smaller, floating over the backdrop */
+.layout-desktop .detailImageContainer .card {
+    width: 19vw !important;
+    top: -27em !important;
+    margin-bottom: -27em !important;
 }
 
 .detailImageContainer .cardScalable {
-    box-shadow: var(--lb-shadow), 0 0 0 1px var(--lb-line);
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
 }
 
-.mediaInfoText,
-.mediaInfoItem.mediaInfoText {
-    background: var(--lb-raise) !important;
+/* Title */
+.itemName,
+.itemName-primary,
+.nameContainer .itemName {
     color: var(--lb-text) !important;
-    border: 1px solid var(--lb-line);
-    border-radius: var(--lb-pill);
-    padding: 0.15em 0.7em;
+    font-weight: 800 !important;
+    line-height: 1.05 !important;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
 
-.mediaInfoOfficialRating {
-    border: 1px solid rgba(140, 120, 255, 0.6) !important;
-    background: rgba(109, 76, 255, 0.16) !important;
+.layout-desktop .nameContainer .itemName.infoText,
+.layout-desktop .nameContainer h1.itemName {
+    font-size: clamp(2.2rem, 4vw, 3.6rem) !important;
+    margin-bottom: 0.15em;
+}
+
+.nameContainer h3.itemName,
+.parentName {
+    color: var(--lb-text-2) !important;
+    font-weight: 600 !important;
+}
+
+/* Year, runtime, rating... */
+.itemMiscInfo {
     color: var(--lb-text) !important;
-    border-radius: var(--lb-radius-sm);
-    padding: 0.1em 0.5em;
+    font-weight: 500;
+    flex-wrap: wrap;
+    row-gap: 0.4em;
 }
 
-.starRatingContainer .material-icons,
+.itemMiscInfo .mediaInfoItem {
+    margin-right: 0.9em !important;
+}
+
+.mediaInfoOfficialRating,
+.mediaInfoText {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    color: var(--lb-text) !important;
+    border-radius: 6px !important;
+    padding: 0.05em 0.5em !important;
+    font-weight: 700 !important;
+    font-size: 0.85em !important;
+}
+
 .starIcon {
-    color: #ffc83d;
+    color: #ffc83d !important;
+}
+
+.endsAt {
+    color: var(--lb-text-3) !important;
+}
+
+/* Buttons: a big Play, then round glass buttons */
+.mainDetailButtons {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0 !important;
 }
 
 .detailButton {
-    border-radius: var(--lb-radius-sm);
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 3.1em;
+    height: 3.1em;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: var(--lb-text) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .detailButton:hover .detailButton-icon {
-        color: var(--lb-cyan);
-    }
+/* (never on .hide: Jellyfin hides the buttons that don't apply) */
+.detailButton:not(.hide) {
+    display: inline-flex !important;
 }
 
-.btnPlay .detailButton-icon,
-.mainDetailButtons .btnPlay {
-    color: var(--lb-cyan);
+.detailButton:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: #fff !important;
+    transform: scale(1.06);
 }
 
-.genres a,
-.itemDetailPage a.button-link,
-.overview-expand {
-    color: var(--lb-cyan) !important;
+.detailButton-content {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35em;
+    margin: 0 !important;
 }
 
+.detailButton-icon {
+    font-size: 1.45em !important;
+    color: inherit !important;
+}
+
+.detailButton-text {
+    display: none;
+}
+
+.mainDetailButtons .btnPlay,
+.mainDetailButtons .btnReplay:not(.hide):first-child {
+    width: auto;
+    height: 3.1em;
+    padding: 0 1.6em 0 1.2em !important;
+    border-radius: var(--lb-pill) !important;
+    background: #fff !important;
+    border: 0 !important;
+    color: #050507 !important;
+    box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7);
+}
+
+.mainDetailButtons .btnPlay .detailButton-icon {
+    font-size: 2em !important;
+    color: #050507 !important;
+}
+
+.mainDetailButtons .btnPlay .detailButton-content::after {
+    content: "Play";
+    font-family: var(--lb-font-display);
+    font-weight: 700;
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+}
+
+.mainDetailButtons .btnPlay:hover {
+    background: rgba(255, 255, 255, 0.85) !important;
+    transform: scale(1.04);
+}
+
+.btnUserRating .detailButton-icon.favorite[style*="color"],
+.btnUserRating.ratingbutton-withrating .detailButton-icon {
+    color: #ff4d7d !important;
+}
+
+/* Text below */
+.detailPageContent {
+    position: relative;
+}
+
+.layout-desktop .detailPagePrimaryContent {
+    max-width: 68em;
+}
+
+.tagline {
+    font-family: var(--lb-font-display) !important;
+    font-size: 1.3em !important;
+    font-weight: 600 !important;
+    color: var(--lb-text) !important;
+    margin: 1em 0 0.4em !important;
+}
+
+.overview,
 .itemOverview {
-    color: var(--lb-text-2);
-    line-height: 1.6;
+    color: var(--lb-text-2) !important;
+    font-size: 1.05em !important;
+    line-height: 1.65 !important;
+    max-width: 62em;
 }
 
-/* ---------------------------------------------------------------------------
- * 10. Forms
- * ------------------------------------------------------------------------- */
+.itemDetailsGroup {
+    margin-top: 1.2em;
+}
+
+.detailsGroupItem .label {
+    color: var(--lb-text-3) !important;
+    font-weight: 600;
+}
+
+.detailsGroupItem .content,
+.detailsGroupItem .content a {
+    color: var(--lb-text) !important;
+}
+
+/* Version / audio / subtitle pickers as pills */
+.trackSelections {
+    gap: 0.6em;
+    flex-wrap: wrap;
+}
+
+.trackSelections .selectContainer {
+    margin: 0 !important;
+}
+
+.detailTrackSelect,
+.trackSelections .emby-select-withcolor {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid var(--lb-line) !important;
+    border-radius: var(--lb-pill) !important;
+    padding: 0.45em 2.2em 0.45em 1em !important;
+    font-weight: 500;
+}
+
+.trackSelections .selectLabel {
+    color: var(--lb-text-3) !important;
+    font-weight: 600;
+}
+
+/* Seasons and episodes */
+.listItem.episodeItem,
+.detailPagePrimaryContent .listItem {
+    border-radius: var(--lb-radius-lg) !important;
+}
+
+.listItemImage {
+    border-radius: var(--lb-radius) !important;
+}
+
+/* ===========================================================================
+ * 10. Sign-in
+ * ======================================================================== */
+
+#loginPage {
+    background:
+        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(166, 44, 243, 0.32), transparent 60%),
+        radial-gradient(ellipse 60% 55% at 90% 90%, rgba(20, 208, 240, 0.22), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 70% 20%, rgba(47, 107, 255, 0.18), transparent 60%),
+        var(--lb-bg) !important;
+    min-height: 100vh;
+}
+
+#loginPage > .padded-left {
+    max-width: 44em;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#loginPage > .padded-left::before {
+    content: "";
+    display: block;
+    width: min(24em, 80vw);
+    aspect-ratio: 2000 / 406;
+    margin: 3em auto 1.5em;
+    background: var(--lb-logo) center / contain no-repeat;
+    filter: drop-shadow(0 10px 40px rgba(109, 76, 255, 0.45));
+}
+
+#loginPage h1,
+#loginPage .sectionTitle {
+    font-family: var(--lb-font-display) !important;
+    font-size: 1.6em !important;
+    font-weight: 600 !important;
+    color: var(--lb-text) !important;
+    text-align: center;
+}
+
+/* "Who's watching" profiles */
+#loginPage #divUsers {
+    gap: 1.2em;
+    justify-content: center;
+}
+
+#loginPage #divUsers .card {
+    width: 9.5em !important;
+    background: none !important;
+    border: 0;
+}
+
+#loginPage #divUsers .cardScalable,
+#loginPage #divUsers .cardContent,
+#loginPage #divUsers .cardImageContainer,
+#loginPage #divUsers .cardPadder {
+    border-radius: 50% !important;
+}
+
+#loginPage #divUsers .cardScalable {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 12px 30px -10px rgba(0, 0, 0, 0.9);
+}
+
+#loginPage #divUsers .card:hover .cardScalable,
+#loginPage #divUsers .card:focus .cardScalable {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 3px #fff, var(--lb-glow);
+}
+
+#loginPage #divUsers .cardText {
+    color: var(--lb-text-2) !important;
+    font-size: 1em !important;
+    font-weight: 600 !important;
+    margin-top: 0.6em;
+    transition: color 0.2s var(--lb-ease);
+}
+
+#loginPage #divUsers .card:hover .cardText {
+    color: var(--lb-text) !important;
+}
+
+#loginPage #divUsers .cardImageIcon {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* The username/password form as a glass card */
+#loginPage .manualLoginForm {
+    max-width: 26em;
+    padding: 2em 2.2em 1.6em !important;
+    background: rgba(14, 14, 22, 0.66);
+    border: 1px solid var(--lb-line);
+    border-radius: 22px;
+    box-shadow: var(--lb-shadow);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+}
+
+#loginPage .readOnlyContent {
+    max-width: 22em;
+}
+
+#loginPage .btnManual,
+#loginPage .btnCancel,
+#loginPage .btnForgotPassword,
+#loginPage .btnQuick {
+    background: transparent !important;
+    border: 1px solid var(--lb-line-strong) !important;
+}
+
+#loginPage .btnManual:hover,
+#loginPage .btnCancel:hover {
+    background: var(--lb-chip) !important;
+}
+
+#loginPage .button-submit {
+    padding: 0.9em !important;
+    font-size: 1.02em;
+}
+
+#loginPage .disclaimerContainer,
+#loginPage .disclaimer {
+    color: var(--lb-text-3) !important;
+    text-align: center;
+}
+
+/* ===========================================================================
+ * 11. Forms
+ * ======================================================================== */
 
 .emby-input,
 .emby-textarea,
 .emby-select-withcolor {
-    background: var(--lb-raise) !important;
+    background: var(--lb-chip) !important;
     border: 1px solid var(--lb-line) !important;
-    border-radius: var(--lb-radius-sm) !important;
+    border-radius: var(--lb-radius) !important;
     color: var(--lb-text) !important;
-    transition: border-color 0.18s var(--lb-ease), box-shadow 0.18s var(--lb-ease);
+    padding: 0.7em 0.9em !important;
+    transition: border-color 0.2s var(--lb-ease), box-shadow 0.2s var(--lb-ease), background 0.2s var(--lb-ease);
+}
+
+.emby-input:hover,
+.emby-textarea:hover,
+.emby-select-withcolor:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
 .emby-input:focus,
 .emby-textarea:focus,
 .emby-select-withcolor:focus {
     border-color: var(--lb-violet) !important;
-    box-shadow: 0 0 0 0.2em rgba(109, 76, 255, 0.28) !important;
-    outline: none;
+    box-shadow: 0 0 0 4px rgba(109, 76, 255, 0.25) !important;
+    outline: none !important;
 }
 
 .emby-select-withcolor > option {
-    background: var(--lb-surface-solid);
+    background: var(--lb-bg-raised);
     color: var(--lb-text);
+}
+
+.inputLabel,
+.selectLabel,
+.textareaLabel,
+.inputLabelUnfocused,
+.selectLabelUnfocused {
+    color: var(--lb-text-2) !important;
+    font-weight: 600;
+    font-size: 0.9em;
 }
 
 .inputLabelFocused,
@@ -625,11 +1243,11 @@ a[data-role="button"]:hover {
 }
 
 .fieldDescription {
-    color: var(--lb-text-3);
+    color: var(--lb-text-3) !important;
 }
 
 .checkboxOutline {
-    border-radius: 0.35em !important;
+    border-radius: 6px !important;
     border-color: var(--lb-line-strong) !important;
 }
 
@@ -643,12 +1261,17 @@ a[data-role="button"]:hover {
 }
 
 .emby-checkbox:focus + span + .checkboxOutline {
-    box-shadow: 0 0 0 0.2em rgba(20, 208, 240, 0.3);
+    box-shadow: 0 0 0 4px rgba(20, 208, 240, 0.3);
+}
+
+.checkboxLabel {
+    color: var(--lb-text) !important;
 }
 
 /* Toggles */
 .mdl-switch__track {
-    background: rgba(255, 255, 255, 0.18) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: var(--lb-pill) !important;
 }
 
 .mdl-switch__input:checked + .mdl-switch__label + .mdl-switch__trackContainer > .mdl-switch__track {
@@ -664,23 +1287,27 @@ a[data-role="button"]:hover {
     opacity: 1 !important;
 }
 
-/* Sliders (volume, seek bar) */
+.MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
+    color: #fff;
+}
+
+/* Sliders */
 .mdl-slider-background-lower {
     background: var(--lb-gradient) !important;
 }
 
 .mdl-slider-background-upper {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.22) !important;
 }
 
 .mdl-slider::-webkit-slider-thumb {
     background: #fff !important;
-    box-shadow: 0 0 0 0.25em rgba(109, 76, 255, 0.35);
+    box-shadow: 0 0 0 5px rgba(109, 76, 255, 0.35) !important;
 }
 
 .mdl-slider::-moz-range-thumb {
     background: #fff !important;
-    box-shadow: 0 0 0 0.25em rgba(109, 76, 255, 0.35);
+    box-shadow: 0 0 0 5px rgba(109, 76, 255, 0.35) !important;
 }
 
 .MuiSlider-track {
@@ -692,21 +1319,38 @@ a[data-role="button"]:hover {
     color: #fff !important;
 }
 
-/* ---------------------------------------------------------------------------
- * 11. Dialogs, menus and toasts
- * ------------------------------------------------------------------------- */
-
-.dialog:not([class*="fullscreen"]) {
-    background: rgba(16, 16, 29, 0.94) !important;
-    border: 1px solid var(--lb-line);
+.MuiOutlinedInput-root,
+.MuiFilledInput-root {
     border-radius: var(--lb-radius) !important;
-    box-shadow: var(--lb-shadow);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--lb-violet) !important;
+}
+
+/* ===========================================================================
+ * 12. Dialogs, menus, lists
+ * ======================================================================== */
+
+.dialog:not([class*="fullscreen"]),
+.MuiDialog-paper {
+    background: var(--lb-glass-strong) !important;
+    background-image: none !important;
+    border: 1px solid var(--lb-line) !important;
+    border-radius: var(--lb-radius-lg) !important;
+    box-shadow: var(--lb-shadow) !important;
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
 }
 
 .dialog[class*="fullscreen"] {
     background: var(--lb-bg) !important;
+}
+
+.dialogBackdropOpened {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .formDialogHeader:not(.formDialogHeader-clear),
@@ -715,128 +1359,222 @@ a[data-role="button"]:hover {
     border-color: var(--lb-line) !important;
 }
 
+.formDialogHeaderTitle {
+    font-family: var(--lb-font-display) !important;
+    font-weight: 700 !important;
+}
+
 .actionSheet {
-    background: rgba(16, 16, 29, 0.96) !important;
-    border: 1px solid var(--lb-line);
+    background: var(--lb-glass-strong) !important;
+    border: 1px solid var(--lb-line) !important;
+    border-radius: var(--lb-radius-lg) !important;
 }
 
 .actionSheetMenuItem {
-    border-radius: var(--lb-radius-sm);
+    border-radius: var(--lb-radius) !important;
 }
 
 .actionSheetMenuItem:hover {
-    background: var(--lb-raise) !important;
+    background: var(--lb-chip) !important;
 }
 
 .MuiPaper-root.MuiMenu-paper,
-.MuiPaper-root.MuiPopover-paper,
-.MuiDialog-paper {
-    background: rgba(16, 16, 29, 0.96) !important;
+.MuiPaper-root.MuiPopover-paper {
+    background: var(--lb-glass-strong) !important;
     background-image: none !important;
     border: 1px solid var(--lb-line);
-    border-radius: var(--lb-radius) !important;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    border-radius: var(--lb-radius-lg) !important;
+    box-shadow: var(--lb-shadow) !important;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
 }
 
 .MuiMenuItem-root {
-    border-radius: var(--lb-radius-sm);
-    margin: 0.1em 0.4em;
+    border-radius: var(--lb-radius) !important;
+    margin: 2px 6px;
 }
 
-.MuiMenuItem-root.Mui-selected {
-    background: var(--lb-gradient-soft) !important;
+.MuiMenuItem-root.Mui-selected,
+.MuiMenuItem-root.Mui-selected:hover {
+    background: rgba(109, 76, 255, 0.22) !important;
 }
 
 .toast,
 .MuiSnackbarContent-root {
-    background: var(--lb-surface-solid) !important;
+    background: var(--lb-bg-raised) !important;
     color: var(--lb-text) !important;
     border: 1px solid var(--lb-line);
-    border-radius: var(--lb-radius-sm) !important;
-    box-shadow: var(--lb-shadow);
+    border-radius: var(--lb-radius) !important;
+    box-shadow: var(--lb-shadow) !important;
 }
 
 .paperList {
-    background: var(--lb-surface) !important;
-    border: 1px solid var(--lb-line);
-    border-radius: var(--lb-radius) !important;
+    background: var(--lb-glass) !important;
+    border: 1px solid var(--lb-line) !important;
+    border-radius: var(--lb-radius-lg) !important;
+    overflow: hidden;
 }
 
 .listItem {
-    border-radius: var(--lb-radius-sm);
+    border-radius: var(--lb-radius) !important;
 }
 
 .listItem:hover,
 .listItem:focus {
-    background: var(--lb-raise) !important;
+    background: var(--lb-chip) !important;
 }
 
 .listItem-border {
     border-color: var(--lb-line) !important;
 }
 
-/* ---------------------------------------------------------------------------
- * 12. Playback
- * ------------------------------------------------------------------------- */
-
-.nowPlayingBar,
-.appfooter {
-    background: rgba(9, 9, 17, 0.82) !important;
-    border-top: 1px solid var(--lb-line);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+.listItemBodyText.secondary,
+.listItem .secondary,
+.secondaryText {
+    color: var(--lb-text-3) !important;
 }
 
-.videoOsdBottom {
-    background: linear-gradient(to top, rgba(4, 4, 10, 0.92) 0%, rgba(4, 4, 10, 0.55) 60%, transparent 100%) !important;
+.alphaPickerButton {
+    color: var(--lb-text-3) !important;
+    border-radius: 6px;
 }
-
-.osdTitle,
-.osdMediaTitle {
-    font-family: var(--lb-font-display);
-    font-weight: 600;
-}
-
-.upNextDialog,
-.upNextContainer {
-    border-radius: var(--lb-radius);
-}
-
-/* ---------------------------------------------------------------------------
- * 13. Misc
- * ------------------------------------------------------------------------- */
 
 .alphaPickerButton-selected {
-    color: var(--lb-cyan) !important;
-    background: rgba(20, 208, 240, 0.12) !important;
-    border-radius: var(--lb-radius-sm);
+    color: #fff !important;
+    background: var(--lb-gradient) !important;
 }
 
 .emby-scrollbuttons .paper-icon-button-light {
-    background: rgba(9, 9, 17, 0.7);
+    background: rgba(5, 5, 7, 0.75) !important;
     border: 1px solid var(--lb-line);
 }
 
 .programCell-active {
-    background: var(--lb-gradient-soft) !important;
+    background: rgba(109, 76, 255, 0.22) !important;
 }
 
 .progressring-spiner,
 .MuiCircularProgress-root {
-    color: var(--lb-cyan) !important;
-    border-color: var(--lb-cyan) !important;
+    color: var(--lb-violet) !important;
+    border-color: var(--lb-violet) !important;
+}
+
+/* Dashboard pages (MUI) */
+.MuiPaper-root.MuiCard-root,
+.MuiPaper-root.MuiAccordion-root {
+    background: var(--lb-glass) !important;
+    background-image: none !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius-lg) !important;
+}
+
+.MuiChip-root {
+    border-radius: var(--lb-pill) !important;
+}
+
+/* ===========================================================================
+ * 13. Player
+ * ======================================================================== */
+
+.videoOsdBottom {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 55%, transparent 100%) !important;
+    padding-top: 4em !important;
+}
+
+.osdHeader,
+.videoOsdTop {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent) !important;
+}
+
+.osdTitle,
+.osdMediaTitle {
+    font-family: var(--lb-font-display) !important;
+    font-weight: 700 !important;
+}
+
+.osdControls .btnPause,
+.videoOsdBottom .btnPause {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #050507 !important;
+    border-radius: 50% !important;
+}
+
+.osdControls .btnPause .material-icons,
+.videoOsdBottom .btnPause .material-icons {
+    color: #050507 !important;
+}
+
+.nowPlayingBar,
+.appfooter {
+    background: rgba(8, 8, 12, 0.88) !important;
+    border-top: 1px solid var(--lb-line) !important;
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+}
+
+.nowPlayingImage {
+    border-radius: 8px;
+}
+
+.upNextDialog,
+.upNextContainer {
+    background: var(--lb-glass-strong) !important;
+    border: 1px solid var(--lb-line);
+    border-radius: var(--lb-radius-lg) !important;
+}
+
+/* ===========================================================================
+ * 14. Small screens and TV
+ * ======================================================================== */
+
+/* Phones: the backdrop is shorter and the hover effects are off */
+.layout-mobile .itemBackdrop::after {
+    background: linear-gradient(to top, var(--lb-bg) 0%, rgba(5, 5, 7, 0.4) 50%, rgba(5, 5, 7, 0.2) 100%);
+}
+
+.layout-mobile .detailRibbon {
+    background: var(--lb-bg) !important;
+}
+
+.layout-mobile .mainDetailButtons {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.8em !important;
+}
+
+.layout-mobile .sectionTitle-cards {
+    font-size: 1.2rem !important;
+}
+
+/* TV: big focus rings, no glass (slow on TV hardware) */
+.layout-tv .mainDrawer,
+.layout-tv .dialog,
+.layout-tv .detailButton,
+.layout-tv .cardOverlayButton-br .cardOverlayButton {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.layout-tv .detailButton:focus,
+.layout-tv .emby-button:focus {
+    background: #fff !important;
+    color: #050507 !important;
+    transform: scale(1.08);
+}
+
+.layout-tv .detailButton:focus .detailButton-icon {
+    color: #050507 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cardScalable,
-    .cardOverlayButton,
-    .emby-button,
-    .paper-icon-button-light {
-        transition: none !important;
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
     }
 
-    .card:hover .cardScalable {
+    .card:hover .cardScalable,
+    .card:focus .cardScalable {
         transform: none !important;
     }
 }
