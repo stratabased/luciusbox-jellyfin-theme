@@ -38,29 +38,29 @@ html:root[data-theme] {
     --lb-cyan: #14d0f0;
     --lb-gradient: linear-gradient(115deg, var(--lb-purple) 0%, var(--lb-violet) 35%, var(--lb-blue) 65%, var(--lb-cyan) 100%);
 
-    /* Surfaces */
-    --lb-bg: #050507;
-    --lb-bg-raised: #0e0e14;
-    --lb-glass: rgba(18, 18, 28, 0.72);
-    --lb-glass-strong: rgba(14, 14, 22, 0.92);
-    --lb-chip: rgba(255, 255, 255, 0.08);
-    --lb-chip-hover: rgba(255, 255, 255, 0.16);
-    --lb-line: rgba(255, 255, 255, 0.09);
-    --lb-line-strong: rgba(255, 255, 255, 0.2);
+    /* Surfaces: flat streaming-app black */
+    --lb-bg: #141414;
+    --lb-bg-raised: #181818;
+    --lb-glass: #1f1f1f;
+    --lb-glass-strong: #181818;
+    --lb-chip: rgba(109, 109, 110, 0.4);
+    --lb-chip-hover: rgba(109, 109, 110, 0.7);
+    --lb-line: rgba(255, 255, 255, 0.1);
+    --lb-line-strong: rgba(255, 255, 255, 0.5);
 
     /* Text */
     --lb-text: #ffffff;
-    --lb-text-2: rgba(235, 236, 245, 0.72);
-    --lb-text-3: rgba(235, 236, 245, 0.46);
+    --lb-text-2: #b3b3b3;
+    --lb-text-3: #808080;
 
-    /* Type */
-    --lb-font: "Inter", "Noto Sans", system-ui, sans-serif;
-    --lb-font-display: "Outfit", "Inter", "Noto Sans", sans-serif;
+    /* Type: one clean sans for everything */
+    --lb-font: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --lb-font-display: var(--lb-font);
 
-    /* Shape and motion */
-    --lb-radius: 10px;
-    --lb-radius-lg: 16px;
-    --lb-pill: 999px;
+    /* Shape and motion: small, crisp corners */
+    --lb-radius: 4px;
+    --lb-radius-lg: 6px;
+    --lb-pill: 4px;
     --lb-ease: cubic-bezier(0.22, 1, 0.36, 1);
     --lb-hover-zoom: 1.05;
     --lb-shadow: 0 18px 50px -12px rgba(0, 0, 0, 0.85);
@@ -86,12 +86,10 @@ html:root[data-theme] {
     --jf-palette-secondary-mainChannel: 20 208 240;
     --jf-palette-secondary-contrastText: #03131a;
     --jf-palette-background-default: var(--lb-bg);
-    --jf-palette-background-defaultChannel: 5 5 7;
+    --jf-palette-background-defaultChannel: 20 20 20;
     --jf-palette-background-paper: var(--lb-bg-raised);
-    --jf-palette-background-paperChannel: 14 14 20;
-    --jf-palette-background-defaultImage:
-        radial-gradient(ellipse 60% 45% at 0% 0%, rgba(166, 44, 243, 0.13), transparent 70%),
-        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(20, 208, 240, 0.08), transparent 70%);
+    --jf-palette-background-paperChannel: 24 24 24;
+    --jf-palette-background-defaultImage: none;
     --jf-palette-text-primary: var(--lb-text);
     --jf-palette-text-secondary: var(--lb-text-2);
     --jf-palette-divider: var(--lb-line);
@@ -236,7 +234,7 @@ img[src*="icon-transparent"] {
     inset: 0 0 -28px 0;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(5, 5, 7, 0.94) 0%, rgba(5, 5, 7, 0.7) 50%, rgba(5, 5, 7, 0) 100%);
+    background: linear-gradient(to bottom, rgba(20, 20, 20, 0.94) 0%, rgba(20, 20, 20, 0.7) 50%, rgba(20, 20, 20, 0) 100%);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
@@ -251,9 +249,9 @@ img[src*="icon-transparent"] {
 /* Header buttons */
 .MuiAppBar-root .MuiButton-root,
 .skinHeader .headerTabs .emby-tab-button {
-    color: var(--lb-text-2) !important;
+    color: #e5e5e5 !important;
     font-weight: 500 !important;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     border-radius: var(--lb-pill) !important;
     padding: 6px 14px !important;
     transition: color 0.2s var(--lb-ease), background-color 0.2s var(--lb-ease);
@@ -261,8 +259,8 @@ img[src*="icon-transparent"] {
 
 .MuiAppBar-root .MuiButton-root:hover,
 .skinHeader .headerTabs .emby-tab-button:hover {
-    color: var(--lb-text) !important;
-    background: var(--lb-chip) !important;
+    color: #b3b3b3 !important;
+    background: transparent !important;
 }
 
 .MuiAppBar-root .MuiButton-root.Mui-selected,
@@ -319,12 +317,11 @@ img[src*="icon-transparent"] {
     display: none !important;
 }
 
-/* The library you're in */
+/* The page you're on */
 .MuiAppBar-root .MuiButton-textPrimary,
 .MuiAppBar-root .MuiButton-colorPrimary {
     color: var(--lb-text) !important;
     font-weight: 700 !important;
-    background: var(--lb-chip) !important;
 }
 
 /* Tabs under the header (library views) */
@@ -354,7 +351,7 @@ img[src*="icon-transparent"] {
 /* Side menu */
 .mainDrawer,
 .MuiDrawer-paper {
-    background: rgba(8, 8, 12, 0.94) !important;
+    background: #141414 !important;
     background-image: none !important;
     border-right: 1px solid var(--lb-line) !important;
     backdrop-filter: blur(24px) saturate(1.3);
@@ -378,9 +375,10 @@ img[src*="icon-transparent"] {
 .navMenuOption-selected,
 .MuiDrawer-paper .MuiListItemButton-root.Mui-selected,
 .MuiDrawer-paper .MuiListItemButton-root.Mui-selected:hover {
-    background: linear-gradient(115deg, rgba(166, 44, 243, 0.28), rgba(47, 107, 255, 0.22) 60%, rgba(20, 208, 240, 0.18)) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     color: var(--lb-text) !important;
-    font-weight: 600;
+    font-weight: 700;
+    box-shadow: inset 3px 0 0 var(--lb-violet);
 }
 
 .navMenuOption-selected .navMenuOptionIcon,
@@ -428,8 +426,24 @@ img[src*="icon-transparent"] {
 }
 
 .sectionTitle-cards {
-    font-size: 1.45rem !important;
-    margin-bottom: 0.15em !important;
+    font-size: clamp(1.1rem, 1.25vw, 1.6rem) !important;
+    color: #e5e5e5 !important;
+    margin-bottom: 0.3em !important;
+}
+
+/* Tighter rows and grids */
+.layout-desktop [dir=ltr] .itemsContainer > .card > .cardBox,
+.layout-mobile [dir=ltr] .itemsContainer > .card > .cardBox {
+    margin-right: 0.5em !important;
+}
+
+.layout-desktop [dir=rtl] .itemsContainer > .card > .cardBox,
+.layout-mobile [dir=rtl] .itemsContainer > .card > .cardBox {
+    margin-left: 0.5em !important;
+}
+
+.layout-desktop .verticalSection {
+    margin-bottom: 0.2em !important;
 }
 
 /* "Explore all" chevron appears when you point at the row title */
@@ -483,7 +497,7 @@ img[src*="icon-transparent"] {
 .cardScalable {
     overflow: hidden;
     background: var(--lb-bg-raised);
-    box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.9);
+    box-shadow: none;
 }
 
 /* Text under cards */
@@ -492,9 +506,11 @@ img[src*="icon-transparent"] {
 }
 
 .cardText {
-    color: var(--lb-text) !important;
-    font-weight: 600;
-    font-size: 0.9em;
+    color: #e5e5e5 !important;
+    font-weight: 500;
+    font-size: 0.85em;
+    text-align: left !important;
+    padding-left: 1px !important;
 }
 
 .cardText-secondary,
@@ -508,12 +524,6 @@ img[src*="icon-transparent"] {
     color: inherit !important;
 }
 
-/* Wide cards (continue watching, episodes): text on the left */
-.overflowBackdropCard .cardText,
-.backdropCard .cardText {
-    text-align: left !important;
-    padding-left: 0.15em;
-}
 
 /* Hover and focus: the picture zooms inside its frame and the frame gets a
    white outline. Nothing changes size, so nothing gets cut off. */
@@ -533,6 +543,20 @@ img[src*="icon-transparent"] {
 }
 
 @media (hover: hover) and (pointer: fine) {
+    .vertical-wrap > .card:hover {
+        position: relative;
+        z-index: 5;
+    }
+
+    .vertical-wrap > .card .cardScalable {
+        transition: transform 0.3s var(--lb-ease), box-shadow 0.3s var(--lb-ease);
+    }
+
+    .vertical-wrap > .card:hover .cardScalable {
+        transform: scale(1.06);
+        box-shadow: 0 14px 34px -8px rgba(0, 0, 0, 0.9);
+    }
+
     .card:hover .cardScalable::after {
         box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9);
     }
@@ -557,7 +581,7 @@ img[src*="icon-transparent"] {
 
 .cardOverlayFab-primary {
     background: rgba(255, 255, 255, 0.95) !important;
-    color: #050507 !important;
+    color: #141414 !important;
     width: 3.1em !important;
     height: 3.1em !important;
     padding: 0 !important;
@@ -569,7 +593,7 @@ img[src*="icon-transparent"] {
 }
 
 .cardOverlayFab-primary .cardOverlayButtonIcon {
-    color: #050507 !important;
+    color: #141414 !important;
     font-size: 2em !important;
 }
 
@@ -592,11 +616,11 @@ img[src*="icon-transparent"] {
 .cardOverlayButton-br .cardOverlayButton:hover {
     background: rgba(255, 255, 255, 0.92) !important;
     border-color: #fff !important;
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 .cardOverlayButton-br .cardOverlayButton:hover .cardOverlayButtonIcon {
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 .cardOverlayButton-br .cardOverlayButtonIcon {
@@ -682,7 +706,7 @@ img[src*="icon-transparent"] {
 a[data-role="button"] {
     background: var(--lb-chip) !important;
     color: var(--lb-text) !important;
-    border: 1px solid var(--lb-line) !important;
+    border: 0 !important;
     box-shadow: none !important;
 }
 
@@ -695,16 +719,15 @@ a[data-role="button"]:hover {
 .button-submit,
 .raised.button-submit,
 .MuiButton-containedPrimary {
-    background: var(--lb-gradient) !important;
+    background: var(--lb-violet) !important;
     color: #fff !important;
     border: 0 !important;
-    box-shadow: var(--lb-glow) !important;
+    box-shadow: none !important;
 }
 
 .button-submit:hover,
 .MuiButton-containedPrimary:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
+    filter: brightness(1.12);
 }
 
 .button-delete {
@@ -729,7 +752,7 @@ a[data-role="button"]:hover {
 .emby-button.show-focus:focus,
 .raised.show-focus:focus {
     background: #fff !important;
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 .paper-icon-button-light {
@@ -754,7 +777,7 @@ a[data-role="button"]:hover {
 
 /* ===========================================================================
  * 9. Item pages (movies, shows, episodes)
- * A backdrop with the logo, info and buttons over it, Netflix style.
+ * A backdrop with the logo, info and buttons over it, streaming-app style.
  * ======================================================================== */
 
 .itemBackdrop {
@@ -766,8 +789,8 @@ a[data-role="button"]:hover {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(to top, var(--lb-bg) 0%, rgba(5, 5, 7, 0.75) 22%, rgba(5, 5, 7, 0.1) 60%, rgba(5, 5, 7, 0.35) 100%),
-        linear-gradient(to right, rgba(5, 5, 7, 0.88) 0%, rgba(5, 5, 7, 0.45) 40%, transparent 75%);
+        linear-gradient(to top, var(--lb-bg) 0%, rgba(20, 20, 20, 0.7) 18%, rgba(20, 20, 20, 0) 50%),
+        linear-gradient(to right, rgba(20, 20, 20, 0.92) 0%, rgba(20, 20, 20, 0.55) 35%, rgba(20, 20, 20, 0) 70%);
     pointer-events: none;
 }
 
@@ -889,8 +912,8 @@ a[data-role="button"]:hover {
 
 .mediaInfoOfficialRating,
 .mediaInfoText {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
     color: var(--lb-text) !important;
     border-radius: 6px !important;
     padding: 0.05em 0.5em !important;
@@ -920,11 +943,9 @@ a[data-role="button"]:hover {
     width: 3.1em;
     height: 3.1em;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(42, 42, 42, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
     color: var(--lb-text) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     align-items: center;
     justify-content: center;
 }
@@ -935,9 +956,8 @@ a[data-role="button"]:hover {
 }
 
 .detailButton:hover {
-    background: rgba(255, 255, 255, 0.22) !important;
+    background: rgba(42, 42, 42, 0.9) !important;
     border-color: #fff !important;
-    transform: scale(1.06);
 }
 
 .detailButton-content {
@@ -962,17 +982,17 @@ a[data-role="button"]:hover {
 .mainDetailButtons .btnReplay:not(.hide):first-child {
     width: auto;
     height: 3.1em;
-    padding: 0 1.6em 0 1.2em !important;
+    padding: 0 1.8em 0 1.3em !important;
     border-radius: var(--lb-pill) !important;
     background: #fff !important;
     border: 0 !important;
-    color: #050507 !important;
+    color: #141414 !important;
     box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.7);
 }
 
 .mainDetailButtons .btnPlay .detailButton-icon {
     font-size: 2em !important;
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 .mainDetailButtons .btnPlay .detailButton-content::after {
@@ -984,8 +1004,7 @@ a[data-role="button"]:hover {
 }
 
 .mainDetailButtons .btnPlay:hover {
-    background: rgba(255, 255, 255, 0.85) !important;
-    transform: scale(1.04);
+    background: rgba(255, 255, 255, 0.75) !important;
 }
 
 .btnUserRating .detailButton-icon.favorite[style*="color"],
@@ -1044,7 +1063,7 @@ a[data-role="button"]:hover {
 
 .detailTrackSelect,
 .trackSelections .emby-select-withcolor {
-    background: rgba(255, 255, 255, 0.07) !important;
+    background: #2a2a2a !important;
     border: 1px solid var(--lb-line) !important;
     border-radius: var(--lb-pill) !important;
     padding: 0.45em 2.2em 0.45em 1em !important;
@@ -1071,11 +1090,7 @@ a[data-role="button"]:hover {
  * ======================================================================== */
 
 #loginPage {
-    background:
-        radial-gradient(ellipse 70% 60% at 15% 10%, rgba(166, 44, 243, 0.32), transparent 60%),
-        radial-gradient(ellipse 60% 55% at 90% 90%, rgba(20, 208, 240, 0.22), transparent 60%),
-        radial-gradient(ellipse 50% 40% at 70% 20%, rgba(47, 107, 255, 0.18), transparent 60%),
-        var(--lb-bg) !important;
+    background: var(--lb-bg) !important;
     min-height: 100vh;
 }
 
@@ -1092,14 +1107,14 @@ a[data-role="button"]:hover {
     aspect-ratio: 2000 / 406;
     margin: 3em auto 1.5em;
     background: var(--lb-logo) center / contain no-repeat;
-    filter: drop-shadow(0 10px 40px rgba(109, 76, 255, 0.45));
+    filter: none;
 }
 
 #loginPage h1,
 #loginPage .sectionTitle {
     font-family: var(--lb-font-display) !important;
-    font-size: 1.6em !important;
-    font-weight: 600 !important;
+    font-size: clamp(1.6em, 3vw, 2.8em) !important;
+    font-weight: 500 !important;
     color: var(--lb-text) !important;
     text-align: center;
 }
@@ -1120,24 +1135,24 @@ a[data-role="button"]:hover {
 #loginPage #divUsers .cardContent,
 #loginPage #divUsers .cardImageContainer,
 #loginPage #divUsers .cardPadder {
-    border-radius: 50% !important;
+    border-radius: var(--lb-radius) !important;
 }
 
 #loginPage #divUsers .cardScalable {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 12px 30px -10px rgba(0, 0, 0, 0.9);
+    box-shadow: none;
 }
 
 #loginPage #divUsers .card:hover .cardScalable,
 #loginPage #divUsers .card:focus .cardScalable {
-    transform: scale(1.06);
-    box-shadow: 0 0 0 3px #fff, var(--lb-glow);
+    box-shadow: 0 0 0 3px #e5e5e5;
 }
 
 #loginPage #divUsers .cardText {
-    color: var(--lb-text-2) !important;
-    font-size: 1em !important;
-    font-weight: 600 !important;
+    color: var(--lb-text-3) !important;
+    font-size: 1.05em !important;
+    font-weight: 400 !important;
     margin-top: 0.6em;
+    text-align: center !important;
     transition: color 0.2s var(--lb-ease);
 }
 
@@ -1152,10 +1167,10 @@ a[data-role="button"]:hover {
 /* The username/password form as a glass card */
 #loginPage .manualLoginForm {
     max-width: 26em;
-    padding: 2em 2.2em 1.6em !important;
-    background: rgba(14, 14, 22, 0.66);
-    border: 1px solid var(--lb-line);
-    border-radius: 22px;
+    padding: 2.4em 2.6em 2em !important;
+    background: rgba(0, 0, 0, 0.75);
+    border: 0;
+    border-radius: var(--lb-radius-lg);
     box-shadow: var(--lb-shadow);
     backdrop-filter: blur(24px) saturate(1.3);
     -webkit-backdrop-filter: blur(24px) saturate(1.3);
@@ -1196,8 +1211,8 @@ a[data-role="button"]:hover {
 .emby-input,
 .emby-textarea,
 .emby-select-withcolor {
-    background: var(--lb-chip) !important;
-    border: 1px solid var(--lb-line) !important;
+    background: #333 !important;
+    border: 1px solid transparent !important;
     border-radius: var(--lb-radius) !important;
     color: var(--lb-text) !important;
     padding: 0.7em 0.9em !important;
@@ -1207,7 +1222,7 @@ a[data-role="button"]:hover {
 .emby-input:hover,
 .emby-textarea:hover,
 .emby-select-withcolor:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: #3a3a3a !important;
 }
 
 .emby-input:focus,
@@ -1336,8 +1351,6 @@ a[data-role="button"]:hover {
     border: 1px solid var(--lb-line) !important;
     border-radius: var(--lb-radius-lg) !important;
     box-shadow: var(--lb-shadow) !important;
-    backdrop-filter: blur(28px) saturate(1.3);
-    -webkit-backdrop-filter: blur(28px) saturate(1.3);
 }
 
 .dialog[class*="fullscreen"] {
@@ -1382,8 +1395,6 @@ a[data-role="button"]:hover {
     border: 1px solid var(--lb-line);
     border-radius: var(--lb-radius-lg) !important;
     box-shadow: var(--lb-shadow) !important;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
 }
 
 .MuiMenuItem-root {
@@ -1442,7 +1453,7 @@ a[data-role="button"]:hover {
 }
 
 .emby-scrollbuttons .paper-icon-button-light {
-    background: rgba(5, 5, 7, 0.75) !important;
+    background: rgba(20, 20, 20, 0.75) !important;
     border: 1px solid var(--lb-line);
 }
 
@@ -1492,13 +1503,13 @@ a[data-role="button"]:hover {
 .osdControls .btnPause,
 .videoOsdBottom .btnPause {
     background: rgba(255, 255, 255, 0.95) !important;
-    color: #050507 !important;
+    color: #141414 !important;
     border-radius: 50% !important;
 }
 
 .osdControls .btnPause .material-icons,
 .videoOsdBottom .btnPause .material-icons {
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 .nowPlayingBar,
@@ -1526,7 +1537,7 @@ a[data-role="button"]:hover {
 
 /* Phones: the backdrop is shorter and the hover effects are off */
 .layout-mobile .itemBackdrop::after {
-    background: linear-gradient(to top, var(--lb-bg) 0%, rgba(5, 5, 7, 0.4) 50%, rgba(5, 5, 7, 0.2) 100%);
+    background: linear-gradient(to top, var(--lb-bg) 0%, rgba(20, 20, 20, 0.4) 50%, rgba(20, 20, 20, 0.2) 100%);
 }
 
 .layout-mobile .detailRibbon {
@@ -1555,12 +1566,12 @@ a[data-role="button"]:hover {
 .layout-tv .detailButton:focus,
 .layout-tv .emby-button:focus {
     background: #fff !important;
-    color: #050507 !important;
+    color: #141414 !important;
     transform: scale(1.08);
 }
 
 .layout-tv .detailButton:focus .detailButton-icon {
-    color: #050507 !important;
+    color: #141414 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1573,4 +1584,16 @@ a[data-role="button"]:hover {
     .card:hover .cardImageContainer {
         transform: none !important;
     }
+}
+
+/* Sign-in: "Who's watching?" above the profiles */
+#loginPage .visualLoginForm > h1 {
+    font-size: 0 !important;
+}
+
+#loginPage .visualLoginForm > h1::after {
+    content: "Who's watching?";
+    font-size: clamp(1.8rem, 3.2vw, 3rem);
+    font-weight: 500;
+    color: var(--lb-text);
 }

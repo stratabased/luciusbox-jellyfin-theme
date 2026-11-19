@@ -21,9 +21,9 @@ Legacy layouts, on desktop, phones and TV.
   pill buttons and inputs, gradient toggles, sliders and progress bars, and
   the Outfit and Inter fonts.
 
-| Sign-in | Password form | Phone |
-|---|---|---|
-| ![](screenshots/sign-in.jpg) | ![](screenshots/sign-in-form.jpg) | ![](screenshots/phone.jpg) |
+| Library | Sign-in |
+|---|---|
+| ![](screenshots/library.jpg) | ![](screenshots/sign-in.jpg) |
 
 ## Install
 
