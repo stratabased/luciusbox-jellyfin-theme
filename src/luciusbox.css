@@ -67,7 +67,8 @@ html:root[data-theme] {
     --lb-glow: 0 10px 40px -10px rgba(109, 76, 255, 0.65), 0 4px 24px -8px rgba(20, 208, 240, 0.5);
 
     /* Item pages: how far the title and text sit from the left (right of the poster) */
-    --lb-detail-indent: 3.3vw;
+    --lb-poster-width: clamp(170px, 13vw, 260px);
+    --lb-detail-indent: calc(3.3vw + var(--lb-poster-width) + 2.5vw);
 
     /* Logos, embedded once by build.py */
     --lb-logo: url("__LOGO__");
@@ -811,16 +812,18 @@ a[data-role="button"]:hover {
     padding-top: 0.4em !important;
 }
 
-/* No poster on big screens: the backdrop is the picture, like a streaming app */
-.layout-desktop .detailPagePrimaryContainer > .detailImageContainer {
-    display: none !important;
+/* Cover art: beside the info, its top level with the logo art */
+.layout-desktop .detailImageContainer .card {
+    width: var(--lb-poster-width) !important;
+    top: -47vh !important;
+    margin-bottom: -47vh !important;
 }
 
 /* The movie's logo art (when it has one) sits just above the info */
 .layout-desktop .detailLogo {
     top: 9vh !important;
-    height: 15vh !important;
-    width: 28vw !important;
+    height: min(15vh, 150px) !important;
+    width: min(30vw, 520px) !important;
     left: var(--lb-detail-indent) !important;
     right: auto !important;
     background-position: left bottom !important;
