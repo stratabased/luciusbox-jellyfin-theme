@@ -9,9 +9,8 @@ Legacy layouts, on desktop, phones and TV.
 - **Header:** clear over the content. Whatever scrolls underneath fades and
   blurs. The full Lucius Box logo replaces Jellyfin's.
 - **Home:** big bold row titles, with an "explore" arrow when you point at
-  one. Posters show the artwork only and reveal the title on hover. Cards
-  grow and light up when you point at them, with a white play button.
-  Libraries are cinematic tiles with the name over the picture.
+  one. Pointing at a card zooms the picture inside its frame and outlines
+  it in white, with a white play button.
 - **Movie and show pages:** a full-screen backdrop with the title, info,
   a white **Play** button and round glass buttons laid over it. The poster
   floats beside them. Cast photos are round.
@@ -53,8 +52,7 @@ Add any of these under the `@import` line. Keep the `html:root[data-theme]` part
 
 ```css
 html:root[data-theme] {
-  --lb-poster-titles: 1;       /* always show titles under posters */
-  --lb-hover-scale: 1.04;      /* calmer hover zoom */
+  --lb-hover-zoom: 1;          /* turn off the hover zoom */
   --lb-radius: 6px;            /* squarer cards */
   --lb-violet: #8b5cf6;        /* change the accent colours */
   --lb-cyan: #22d3ee;

@@ -62,15 +62,12 @@ html:root[data-theme] {
     --lb-radius-lg: 16px;
     --lb-pill: 999px;
     --lb-ease: cubic-bezier(0.22, 1, 0.36, 1);
-    --lb-hover-scale: 1.07;
+    --lb-hover-zoom: 1.05;
     --lb-shadow: 0 18px 50px -12px rgba(0, 0, 0, 0.85);
     --lb-glow: 0 10px 40px -10px rgba(109, 76, 255, 0.65), 0 4px 24px -8px rgba(20, 208, 240, 0.5);
 
-    /* Poster titles in rows: 0 = shown only on hover (streaming style), 1 = always shown */
-    --lb-poster-titles: 0;
-
     /* Item pages: how far the title and text sit from the left (right of the poster) */
-    --lb-detail-indent: calc(3.3vw + 22vw);
+    --lb-detail-indent: calc(3.3vw + 15vw + 3vw);
 
     /* Logos, embedded once by build.py */
     --lb-logo: url("__LOGO__");
@@ -191,28 +188,6 @@ h3,
  * background, which works in every browser.
  * ======================================================================== */
 
-/* Modern layout: the server button becomes the full Lucius Box logo */
-.MuiButton-root:has(> .MuiButton-startIcon img[src*="icon-transparent"]) {
-    font-size: 0 !important;
-    color: transparent !important;
-    padding: 6px 10px !important;
-    margin-right: 12px;
-    border-radius: var(--lb-radius) !important;
-}
-
-.MuiButton-startIcon:has(> img[src*="icon-transparent"]) {
-    margin: 0 !important;
-}
-
-.MuiButton-startIcon > img[src*="icon-transparent"] {
-    width: 150px !important;
-    height: 30px !important;
-    max-width: none !important;
-    max-height: none !important;
-    object-position: -9999px -9999px;
-    background: var(--lb-logo) left center / contain no-repeat;
-}
-
 /* Anywhere else Jellyfin shows its icon: the hexagon */
 img[src*="icon-transparent"] {
     object-position: -9999px -9999px;
@@ -310,6 +285,38 @@ img[src*="icon-transparent"] {
 .MuiAppBar-root .MuiAvatar-root,
 .headerUserButtonRound {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18);
+}
+
+/* The server button (the only large button in the bar) becomes the full
+   logo, and its text, the server's name, is hidden */
+.MuiAppBar-root .MuiToolbar-root .MuiButton-sizeLarge {
+    font-size: 0 !important;
+    color: transparent !important;
+    padding: 6px 10px !important;
+    margin-right: 10px;
+    min-width: 0 !important;
+    border-radius: var(--lb-radius) !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root .MuiButton-sizeLarge .MuiButton-startIcon {
+    margin: 0 !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root .MuiButton-sizeLarge .MuiButton-startIcon > img {
+    width: 150px !important;
+    height: 30px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-position: -9999px -9999px;
+    background: var(--lb-logo) left center / contain no-repeat;
+}
+
+/* The library you're in */
+.MuiAppBar-root .MuiButton-textPrimary,
+.MuiAppBar-root .MuiButton-colorPrimary {
+    color: var(--lb-text) !important;
+    font-weight: 700 !important;
+    background: var(--lb-chip) !important;
 }
 
 /* Tabs under the header (library views) */
@@ -442,14 +449,6 @@ img[src*="icon-transparent"] {
     transform: none;
 }
 
-/* Room for cards to grow on hover without being cut off */
-.layout-desktop .emby-scroller {
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-    margin-top: -0.6em;
-    margin-bottom: -0.6em;
-}
-
 /* ===========================================================================
  * 7. Cards
  * ======================================================================== */
@@ -477,11 +476,6 @@ img[src*="icon-transparent"] {
     overflow: hidden;
     background: var(--lb-bg-raised);
     box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.9);
-    transition: transform 0.35s var(--lb-ease), box-shadow 0.35s var(--lb-ease);
-}
-
-.cardBox {
-    transition: transform 0.35s var(--lb-ease);
 }
 
 /* Text under cards */
@@ -513,41 +507,38 @@ img[src*="icon-transparent"] {
     padding-left: 0.15em;
 }
 
-/* Posters in rows: artwork only; the title shows on hover */
+/* Hover and focus: the picture zooms inside its frame and the frame gets a
+   white outline. Nothing changes size, so nothing gets cut off. */
+.cardScalable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0);
+    pointer-events: none;
+    z-index: 4;
+    transition: box-shadow 0.25s var(--lb-ease);
+}
+
+.cardImageContainer {
+    transition: transform 0.6s var(--lb-ease), filter 0.3s var(--lb-ease);
+}
+
 @media (hover: hover) and (pointer: fine) {
-    .scrollSlider .overflowPortraitCard:not(.personCard) .cardFooter {
-        opacity: var(--lb-poster-titles);
-        transition: opacity 0.25s var(--lb-ease);
+    .card:hover .cardScalable::after {
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9);
     }
 
-    .scrollSlider .overflowPortraitCard:not(.personCard):hover .cardFooter,
-    .scrollSlider .overflowPortraitCard:not(.personCard):focus-within .cardFooter {
-        opacity: 1;
-    }
-}
-
-/* Hover: the card grows, lifts and catches the light */
-@media (hover: hover) and (pointer: fine) {
-    .card:hover {
-        z-index: 5;
-        position: relative;
-    }
-
-    .card:hover .cardScalable {
-        transform: scale(var(--lb-hover-scale));
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), var(--lb-shadow), var(--lb-glow);
+    .card:hover .cardImageContainer {
+        transform: scale(var(--lb-hover-zoom));
+        filter: brightness(1.08);
     }
 }
 
-/* Keyboard and remote focus */
-.card:focus-visible .cardScalable,
-.card.show-focus:focus .cardScalable {
-    transform: scale(var(--lb-hover-scale));
-    box-shadow: 0 0 0 3px #fff, var(--lb-glow) !important;
-}
-
-.layout-tv .card:focus .cardScalable {
-    box-shadow: 0 0 0 3px #fff, var(--lb-glow) !important;
+.card:focus-visible .cardScalable::after,
+.card.show-focus:focus .cardScalable::after,
+.layout-tv .card:focus .cardScalable::after {
+    box-shadow: inset 0 0 0 3px #fff;
 }
 
 /* The hover layer: dark fade, big play button, small round buttons */
@@ -602,48 +593,6 @@ img[src*="icon-transparent"] {
 
 .cardOverlayButton-br .cardOverlayButtonIcon {
     font-size: 1.15em !important;
-}
-
-/* Libraries on the home screen: name over the picture */
-.card[data-type="CollectionFolder"] .cardBox,
-.card[data-type="UserView"] .cardBox {
-    position: relative;
-}
-
-.card[data-type="CollectionFolder"] .cardFooter,
-.card[data-type="UserView"] .cardFooter {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 2.4em 1em 0.9em !important;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent) !important;
-    border-radius: 0 0 var(--lb-radius) var(--lb-radius);
-    pointer-events: none;
-    z-index: 2;
-    transition: transform 0.35s var(--lb-ease);
-}
-
-.card[data-type="CollectionFolder"] .cardText,
-.card[data-type="UserView"] .cardText {
-    font-family: var(--lb-font-display) !important;
-    font-size: 1.3em !important;
-    font-weight: 700 !important;
-    text-align: left !important;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
-}
-
-.card[data-type="CollectionFolder"] .cardBox-bottompadded,
-.card[data-type="UserView"] .cardBox-bottompadded {
-    margin-bottom: 0.8em !important;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .card[data-type="CollectionFolder"]:hover .cardFooter,
-    .card[data-type="UserView"]:hover .cardFooter {
-        transform: scale(var(--lb-hover-scale));
-        transform-origin: center top;
-    }
 }
 
 /* Watched ticks, counts, progress */
@@ -809,7 +758,7 @@ a[data-role="button"]:hover {
 }
 
 .layout-desktop .itemBackdrop {
-    height: 78vh !important;
+    height: 66vh !important;
 }
 
 /* The info sits on the backdrop instead of in a grey bar */
@@ -823,7 +772,7 @@ a[data-role="button"]:hover {
 
 .layout-desktop .detailRibbon {
     height: auto !important;
-    margin-top: -21em !important;
+    margin-top: -27vh !important;
     padding-bottom: 1.5em;
     flex-direction: column;
     align-items: flex-start !important;
@@ -847,9 +796,27 @@ a[data-role="button"]:hover {
 
 /* Poster: smaller, floating over the backdrop */
 .layout-desktop .detailImageContainer .card {
-    width: 19vw !important;
-    top: -27em !important;
-    margin-bottom: -27em !important;
+    width: 15vw !important;
+    top: -40vh !important;
+    margin-bottom: -40vh !important;
+}
+
+/* The movie's logo art (when it has one) sits just above the title */
+.layout-desktop .detailLogo {
+    top: 16vh !important;
+    height: 19vh !important;
+    width: 30vw !important;
+    left: var(--lb-detail-indent) !important;
+    right: auto !important;
+    background-position: left bottom !important;
+    z-index: 2;
+    filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.6));
+}
+
+.layout-desktop [dir=rtl] .detailLogo {
+    right: var(--lb-detail-indent) !important;
+    left: auto !important;
+    background-position: right bottom !important;
 }
 
 .detailImageContainer .cardScalable {
@@ -1573,8 +1540,7 @@ a[data-role="button"]:hover {
         transition-duration: 0.01ms !important;
     }
 
-    .card:hover .cardScalable,
-    .card:focus .cardScalable {
+    .card:hover .cardImageContainer {
         transform: none !important;
     }
 }
