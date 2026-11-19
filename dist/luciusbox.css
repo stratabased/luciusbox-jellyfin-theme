@@ -67,7 +67,7 @@ html:root[data-theme] {
     --lb-glow: 0 10px 40px -10px rgba(109, 76, 255, 0.65), 0 4px 24px -8px rgba(20, 208, 240, 0.5);
 
     /* Item pages: how far the title and text sit from the left (right of the poster) */
-    --lb-poster-width: clamp(170px, 13vw, 260px);
+    --lb-poster-width: clamp(170px, 12vw, 420px);
     --lb-detail-indent: calc(3.3vw + var(--lb-poster-width) + 2.5vw);
 
     /* Logos, embedded once by build.py */
@@ -1700,4 +1700,74 @@ a[data-role="button"]:hover {
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(var(--lb-purple), var(--lb-cyan)) !important;
     background-clip: padding-box !important;
+}
+
+/* ===========================================================================
+ * 16. Big screens and Jellyfin Media Player
+ * Measured in the real player: its movie backdrop is the full-window
+ * background (not the page's own image slot), and on a large window
+ * Jellyfin's fixed text size looks tiny next to the artwork.
+ * ======================================================================== */
+
+/* Text grows with the window, like a streaming app */
+html {
+    font-size: clamp(14.88px, 0.64vw, 26px) !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root .MuiButton-sizeLarge .MuiButton-startIcon > img {
+    width: 9.2em !important;
+    height: 1.85em !important;
+}
+
+.MuiAppBar-root .MuiButton-root,
+.MuiAppBar-root .MuiIconButton-root {
+    font-size: 1rem !important;
+}
+
+.MuiAppBar-root .MuiSvgIcon-root {
+    font-size: 1.5rem !important;
+}
+
+.MuiAppBar-root .MuiToolbar-root {
+    min-height: 4.2rem !important;
+}
+
+/* The full-window backdrop: vivid on the right, dark behind the text */
+.backgroundContainer.withBackdrop {
+    opacity: 1 !important;
+    background-color: transparent !important;
+    background-image:
+        linear-gradient(to right, rgba(20, 20, 20, 0.97) 0%, rgba(20, 20, 20, 0.85) 30%, rgba(20, 20, 20, 0.45) 60%, rgba(20, 20, 20, 0.6) 100%),
+        linear-gradient(to top, rgba(20, 20, 20, 0.95) 0%, rgba(20, 20, 20, 0) 45%) !important;
+}
+
+/* Item page: hero laid out from the top of the page, no dead space */
+.layout-desktop .itemBackdrop {
+    height: 34vh !important;
+}
+
+.layout-desktop .detailLogo {
+    top: 8vh !important;
+    height: 14vh !important;
+}
+
+.layout-desktop .detailRibbon {
+    margin-top: -11vh !important;
+}
+
+.layout-desktop .detailImageContainer .card {
+    top: -26vh !important;
+    margin-bottom: -26vh !important;
+}
+
+/* Less clutter: the long tag list is hidden */
+.itemDetailPage .itemTags {
+    display: none !important;
+}
+
+/* Home and library screens (they have section tabs): keep the backdrop a
+   faint texture so the rows stay clean; it's vivid only on item pages */
+body.withSectionTabs .backgroundContainer.withBackdrop {
+    background-image: none !important;
+    background-color: rgba(20, 20, 20, 0.94) !important;
 }

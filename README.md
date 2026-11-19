@@ -76,4 +76,4 @@ Every setting is in the first block of `src/luciusbox.css`.
 | `src/luciusbox.css` | The source |
 | `assets/` | The original logo and its dark-background versions |
 | `tools/` | Logo processing and build scripts |
-| `screenshots/` | The pictures above, taken on mock pages built from Jellyfin 12's own markup and stylesheets |
+| `screenshots/` | The pictures above, taken in Jellyfin Media Player |
