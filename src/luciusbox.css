@@ -1765,11 +1765,10 @@ html {
     display: none !important;
 }
 
-/* Home and library screens (they have section tabs): keep the backdrop a
-   faint texture so the rows stay clean; it's vivid only on item pages */
-body.withSectionTabs .backgroundContainer.withBackdrop {
-    background-image: none !important;
-    background-color: rgba(20, 20, 20, 0.94) !important;
+/* Home and browsing screens (they have section tabs): no movie art behind
+   the rows, a slow purple/cyan aurora instead (see the end of the file) */
+body.withSectionTabs .backdropContainer {
+    display: none !important;
 }
 
 /* Episode lists: compact rows, a small thumbnail and two lines of story */
@@ -1866,4 +1865,85 @@ body.withSectionTabs .backgroundContainer.withBackdrop {
 /* Home: bigger channel banners */
 .layout-desktop .homeSectionsContainer > .section0 .overflowBackdropCard {
     width: clamp(320px, 23.5vw, 620px) !important;
+}
+
+/* ===========================================================================
+ * 17. Backgrounds
+ * ======================================================================== */
+
+/* Item pages: the art is a hero at the top that fades into black; the rest
+   of the page scrolls on solid black */
+body:not(.withSectionTabs) .backdropContainer {
+    position: absolute !important;
+    height: 92vh !important;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%);
+}
+
+body:not(.withSectionTabs) .backgroundContainer.withBackdrop {
+    position: absolute !important;
+    height: 92vh !important;
+    background-image:
+        linear-gradient(to right, rgba(20, 20, 20, 0.97) 0%, rgba(20, 20, 20, 0.85) 30%, rgba(20, 20, 20, 0.4) 60%, rgba(20, 20, 20, 0.55) 100%),
+        linear-gradient(to top, #141414 0%, rgba(20, 20, 20, 0) 60%) !important;
+}
+
+/* Everywhere else: a slow aurora in the logo's colours over the black */
+body.withSectionTabs .backgroundContainer,
+.backgroundContainer:not(.withBackdrop) {
+    background-color: var(--lb-bg) !important;
+    background-image: none !important;
+    opacity: 1 !important;
+    overflow: hidden;
+}
+
+body.withSectionTabs .backgroundContainer::before,
+body.withSectionTabs .backgroundContainer::after,
+.backgroundContainer:not(.withBackdrop)::before,
+.backgroundContainer:not(.withBackdrop)::after {
+    content: "";
+    position: absolute;
+    width: 70vmax;
+    height: 70vmax;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+body.withSectionTabs .backgroundContainer::before,
+.backgroundContainer:not(.withBackdrop)::before {
+    top: -35vmax;
+    left: -20vmax;
+    background: radial-gradient(circle, rgba(166, 44, 243, 0.32) 0%, rgba(109, 76, 255, 0.14) 35%, transparent 65%);
+    animation: lb-drift-a 38s ease-in-out infinite alternate;
+}
+
+body.withSectionTabs .backgroundContainer::after,
+.backgroundContainer:not(.withBackdrop)::after {
+    bottom: -40vmax;
+    right: -25vmax;
+    background: radial-gradient(circle, rgba(20, 208, 240, 0.24) 0%, rgba(47, 107, 255, 0.12) 35%, transparent 65%);
+    animation: lb-drift-b 46s ease-in-out infinite alternate;
+}
+
+@keyframes lb-drift-a {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(18vw, 14vh) scale(1.15); }
+}
+
+@keyframes lb-drift-b {
+    from { transform: translate(0, 0) scale(1.1); }
+    to { transform: translate(-16vw, -12vh) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .backgroundContainer::before,
+    .backgroundContainer::after {
+        animation: none !important;
+    }
+}
+
+.layout-tv .backgroundContainer::before,
+.layout-tv .backgroundContainer::after {
+    animation: none !important;
 }
