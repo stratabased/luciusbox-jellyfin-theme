@@ -2238,3 +2238,26 @@ body:not(.withSectionTabs) .backdropImageFadeIn {
     margin-bottom: 0 !important;
 }
 
+
+/* Item pages: the poster beside the info is just a picture, no hover effect
+   (cards everywhere else keep theirs) */
+.detailImageContainer .card:hover .cardScalable,
+.detailImageContainer .card:focus-within .cardScalable {
+    transform: none !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px -18px rgba(0, 0, 0, 0.95) !important;
+}
+
+.detailImageContainer .card:hover .cardImageContainer {
+    transform: none !important;
+    filter: none !important;
+}
+
+.detailImageContainer .cardScalable::before,
+.detailImageContainer .cardScalable::after,
+.detailImageContainer .cardOverlayContainer {
+    display: none !important;
+}
+
+.detailImageContainer .card:hover {
+    contain: layout style paint !important;
+}
