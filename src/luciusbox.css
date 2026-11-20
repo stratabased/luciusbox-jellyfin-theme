@@ -2109,3 +2109,20 @@ body:not(.withSectionTabs) .backgroundContainer.withBackdrop {
     0% { left: -60%; opacity: 1; }
     100% { left: 130%; opacity: 1; }
 }
+
+/* Item pages: no extra dark box over the top of the page (the artwork behind
+   the window already fades in from the left and out at the bottom) */
+.itemBackdrop::after {
+    display: none !important;
+}
+
+/* Home/browsing: a subtler hexagon grid and glow */
+body.withSectionTabs .backgroundContainer::before,
+.backgroundContainer:not(.withBackdrop)::before {
+    opacity: 0.035 !important;
+}
+
+body.withSectionTabs .backgroundContainer::after,
+.backgroundContainer:not(.withBackdrop)::after {
+    opacity: 0.4 !important;
+}
