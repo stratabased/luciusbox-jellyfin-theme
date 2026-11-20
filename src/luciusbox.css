@@ -1843,3 +1843,27 @@ body.withSectionTabs .backgroundContainer.withBackdrop {
     font-size: clamp(1.1rem, 1.25vw, 1.6rem);
     vertical-align: middle;
 }
+
+/* Top bar: clear at the top of a page, solid black once you scroll
+   (Jellyfin switches the bar from "transparent" to "default" on scroll) */
+.MuiAppBar-root {
+    transition: background-color 0.35s ease !important;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault {
+    background-color: rgba(20, 20, 20, 0.97) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+.MuiAppBar-root.MuiAppBar-colorDefault::before {
+    opacity: 0;
+}
+
+.MuiAppBar-root::before {
+    transition: opacity 0.35s ease;
+}
+
+/* Home: bigger channel banners */
+.layout-desktop .homeSectionsContainer > .section0 .overflowBackdropCard {
+    width: clamp(320px, 23.5vw, 620px) !important;
+}
