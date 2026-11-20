@@ -2261,3 +2261,8 @@ body:not(.withSectionTabs) .backdropImageFadeIn {
 .detailImageContainer .card:hover {
     contain: layout style paint !important;
 }
+
+/* Clicks on the logo art go through to the series link underneath it */
+.detailLogo {
+    pointer-events: none !important;
+}
