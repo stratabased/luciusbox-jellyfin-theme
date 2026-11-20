@@ -231,7 +231,10 @@ img[src*="icon-transparent"] {
 .MuiAppBar-root::before {
     content: "";
     position: absolute;
-    inset: 0 0 -28px 0;
+    top: 0;
+    right: 0;
+    bottom: -28px;
+    left: 0;
     z-index: -1;
     pointer-events: none;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
@@ -530,7 +533,10 @@ img[src*="icon-transparent"] {
 .cardScalable::after {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     border-radius: inherit;
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0);
     pointer-events: none;
@@ -787,7 +793,10 @@ a[data-role="button"]:hover {
 .itemBackdrop::after {
     content: "";
     position: absolute;
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background:
         linear-gradient(to top, var(--lb-bg) 0%, rgba(0, 0, 0, 0.7) 18%, rgba(0, 0, 0, 0) 50%),
         linear-gradient(to right, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 35%, rgba(0, 0, 0, 0) 70%);
@@ -1788,7 +1797,7 @@ html {
 }
 
 /* Home and browsing screens (they have section tabs): no movie art behind
-   the rows, a projector-beam effect instead (see the end of the file) */
+   the rows, a glowing hexagon grid instead (see section 17) */
 body.withSectionTabs .backdropContainer {
     display: none !important;
 }
@@ -1910,73 +1919,60 @@ body:not(.withSectionTabs) .backgroundContainer.withBackdrop {
         linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 60%) !important;
 }
 
-/* Everywhere else: a projector beam. A soft cone of light in the logo's
-   colours shines down from the top centre and sways slowly, with fine film
-   grain over it and a dark vignette at the edges. */
+/* Everywhere else: a faint hexagon grid (the logo's shape) over black, with a
+   soft purple/cyan glow drifting across it and lighting the hexagons up. */
 body.withSectionTabs .backgroundContainer,
 .backgroundContainer:not(.withBackdrop) {
     background-color: #000000 !important;
-    background-image: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.75) 100%) !important;
+    background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(109, 76, 255, 0.10), transparent 70%),
+        radial-gradient(ellipse 120% 90% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.8) 100%) !important;
     opacity: 1 !important;
     overflow: hidden;
 }
 
-/* The beam */
+/* The grid, barely there */
 body.withSectionTabs .backgroundContainer::before,
 .backgroundContainer:not(.withBackdrop)::before {
     content: "";
     position: absolute;
-    left: 50%;
-    top: -12vh;
-    width: 130vmax;
-    height: 130vmax;
-    margin-left: -65vmax;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
-    transform-origin: 50% 0;
-    background:
-        conic-gradient(from 0deg at 50% 0%,
-            transparent 0deg,
-            transparent 152deg,
-            rgba(166, 44, 243, 0.16) 163deg,
-            rgba(109, 76, 255, 0.30) 172deg,
-            rgba(150, 140, 255, 0.40) 180deg,
-            rgba(47, 107, 255, 0.30) 188deg,
-            rgba(20, 208, 240, 0.16) 197deg,
-            transparent 208deg,
-            transparent 360deg);
-    -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 0%, #000 0%, rgba(0, 0, 0, 0.6) 45%, transparent 80%);
-    mask-image: radial-gradient(ellipse 50% 60% at 50% 0%, #000 0%, rgba(0, 0, 0, 0.6) 45%, transparent 80%);
-    filter: blur(14px);
-    animation: lb-beam 22s ease-in-out infinite alternate;
-    will-change: transform;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='69.28' height='120' viewBox='0 0 34.64 60'><path d='M17.32 0 L34.64 10 L34.64 30 L17.32 40 L0 30 L0 10 Z M0 30 L0 50 M34.64 30 L34.64 50 M0 50 L17.32 60 M34.64 50 L17.32 60' fill='none' stroke='white' stroke-width='0.6'/></svg>");
+    background-size: 69.28px 120px;
 }
 
-/* Film grain */
+/* The same grid in the logo's gradient, seen only where the glow drifts */
 body.withSectionTabs .backgroundContainer::after,
 .backgroundContainer:not(.withBackdrop)::after {
     content: "";
     position: absolute;
-    inset: -50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     pointer-events: none;
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    animation: lb-grain 0.9s steps(6) infinite;
-    will-change: transform;
+    background: linear-gradient(120deg, #a62cf3, #6d4cff 40%, #2f6bff 70%, #14d0f0);
+    opacity: 0.85;
+    -webkit-mask-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='69.28' height='120' viewBox='0 0 34.64 60'><path d='M17.32 0 L34.64 10 L34.64 30 L17.32 40 L0 30 L0 10 Z M0 30 L0 50 M34.64 30 L34.64 50 M0 50 L17.32 60 M34.64 50 L17.32 60' fill='none' stroke='black' stroke-width='1'/></svg>"),
+        radial-gradient(circle at center, #000 0%, rgba(0, 0, 0, 0.45) 30%, transparent 65%);
+    -webkit-mask-size: 69.28px 120px, 80vmax 80vmax;
+    -webkit-mask-repeat: repeat, no-repeat;
+    -webkit-mask-position: 0 0, 10% 15%;
+    -webkit-mask-composite: source-in;
+    animation: lb-hex-glow 30s ease-in-out infinite alternate;
 }
 
-@keyframes lb-beam {
-    from { transform: rotate(-7deg); opacity: 0.85; }
-    50% { opacity: 1; }
-    to { transform: rotate(7deg); opacity: 0.8; }
-}
-
-@keyframes lb-grain {
-    0% { transform: translate(0, 0); }
-    20% { transform: translate(-3%, 2%); }
-    40% { transform: translate(2%, -3%); }
-    60% { transform: translate(-2%, -1%); }
-    80% { transform: translate(3%, 3%); }
-    100% { transform: translate(0, 0); }
+@keyframes lb-hex-glow {
+    0% { -webkit-mask-position: 0 0, 0% 0%; }
+    33% { -webkit-mask-position: 0 0, 70% 25%; }
+    66% { -webkit-mask-position: 0 0, 100% 90%; }
+    100% { -webkit-mask-position: 0 0, 20% 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2048,4 +2044,68 @@ body:not(.withSectionTabs) .backgroundContainer.withBackdrop {
 /* A faint frame so dark posters don't melt into the black */
 .detailImageContainer .cardScalable {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px -18px rgba(0, 0, 0, 0.95) !important;
+}
+
+/* ===========================================================================
+ * 19. Card hover: lift, purple glow and a shine
+ * ======================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+    .card .cardScalable {
+        transition: transform 0.35s var(--lb-ease), box-shadow 0.35s var(--lb-ease) !important;
+    }
+
+    /* Jellyfin clips each card to its box ("contain: paint"); let the
+       hovered one draw its glow outside */
+    .card:hover {
+        position: relative;
+        z-index: 5;
+        contain: layout style !important;
+    }
+
+    .card:hover .cardScalable {
+        transform: translateY(-5px);
+        box-shadow:
+            0 0 0 2px rgba(150, 120, 255, 0.95),
+            0 0 22px 2px rgba(109, 76, 255, 0.75),
+            0 0 60px 6px rgba(20, 208, 240, 0.28),
+            0 18px 40px -12px rgba(0, 0, 0, 0.9) !important;
+    }
+
+    /* No inner frame: the glow does the job */
+    .card:hover .cardScalable::after {
+        box-shadow: none !important;
+    }
+
+    /* A diagonal shine sweeps across once */
+    .cardScalable::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -60%;
+        width: 45%;
+        z-index: 4;
+        pointer-events: none;
+        background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
+        transform: skewX(-18deg);
+        opacity: 0;
+    }
+
+    .card:hover .cardScalable::before {
+        animation: lb-shine 0.9s var(--lb-ease) 1;
+    }
+
+    .vertical-wrap > .card:hover .cardScalable {
+        transform: translateY(-5px) scale(1.03);
+    }
+
+    .personCard:hover .cardScalable {
+        transform: translateY(-4px);
+    }
+}
+
+@keyframes lb-shine {
+    0% { left: -60%; opacity: 1; }
+    100% { left: 130%; opacity: 1; }
 }
