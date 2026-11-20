@@ -2266,3 +2266,26 @@ body:not(.withSectionTabs) .backdropImageFadeIn {
 .detailLogo {
     pointer-events: none !important;
 }
+
+/* Video playback: Jellyfin Media Player draws the video underneath the page
+   and marks the page transparent; keep every background out of the way */
+html.transparentDocument,
+html.transparentDocument body,
+html.transparentDocument .backgroundContainer,
+.backgroundContainer.backgroundContainer-transparent {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+html.transparentDocument .backgroundContainer::before,
+html.transparentDocument .backgroundContainer::after,
+.backgroundContainer.backgroundContainer-transparent::before,
+.backgroundContainer.backgroundContainer-transparent::after,
+html.transparentDocument .backdropContainer {
+    display: none !important;
+}
+
+html.transparentDocument .MuiAppBar-root::before,
+html.transparentDocument .skinHeader::before {
+    display: none !important;
+}
