@@ -1919,8 +1919,8 @@ body:not(.withSectionTabs) .backgroundContainer.withBackdrop {
         linear-gradient(to top, #000000 0%, rgba(0, 0, 0, 0) 60%) !important;
 }
 
-/* Everywhere else: a faint pattern of tarot cards (skull with sun rays,
-   moon, stars, ornate border) over black, with a purple/cyan glow drifting
+/* Everywhere else: a faint pattern of four different tarot cards (Death,
+   the Eye, the Moon, the Blade) over black, with a purple/cyan glow drifting
    across it and lighting the lines up. */
 body.withSectionTabs .backgroundContainer,
 .backgroundContainer:not(.withBackdrop) {
@@ -1943,8 +1943,8 @@ body.withSectionTabs .backgroundContainer::before,
     left: 0;
     pointer-events: none;
     opacity: 0.07;
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='240' viewBox='0 0 180 240'%3E%3Cg fill='none' stroke='white' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M84 40 A12 12 0 1 0 99 57 A9.5 9.5 0 1 1 84 40 Z'/%3E%3Cpath d='M90.0 82.0 L90.0 70.0 M105.3 85.0 L107.6 79.5 M118.3 93.7 L126.8 85.2 M127.0 106.7 L132.5 104.4 M130.0 122.0 L142.0 122.0 M50.0 122.0 L38.0 122.0 M53.0 106.7 L47.5 104.4 M61.7 93.7 L53.2 85.2 M74.7 85.0 L72.4 79.5'/%3E%3Ccircle cx='90' cy='122' r='36'/%3E%3Cpath d='M68 120 C68 94 112 94 112 120 C112 130 107 134 105 138 L105 150 L75 150 L75 138 C73 134 68 130 68 120 Z'/%3E%3Ccircle cx='80' cy='121' r='6' fill='white'/%3E%3Ccircle cx='100' cy='121' r='6' fill='white'/%3E%3Cpath d='M90 128 L86 135 L94 135 Z' fill='white'/%3E%3Cpath d='M75 143 L105 143 M81 143 L81 150 M86 143 L86 150 M91 143 L91 150 M96 143 L96 150 M101 143 L101 150'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M70 199 Q70 204 75 204 Q70 204 70 209 Q70 204 65 204 Q70 204 70 199 Z M90 198 Q90 204 96 204 Q90 204 90 210 Q90 204 84 204 Q90 204 90 198 Z M110 199 Q110 204 115 204 Q110 204 110 209 Q110 204 105 204 Q110 204 110 199 Z'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 180px 240px;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='480' viewBox='0 0 360 480'%3E%3Cg fill='none' stroke='white' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate%280 0%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M84 40 A12 12 0 1 0 99 57 A9.5 9.5 0 1 1 84 40 Z'/%3E%3Cpath d='M90.0 82.0 L90.0 70.0 M105.3 85.0 L107.6 79.5 M118.3 93.7 L126.8 85.2 M127.0 106.7 L132.5 104.4 M130.0 122.0 L142.0 122.0 M50.0 122.0 L38.0 122.0 M53.0 106.7 L47.5 104.4 M61.7 93.7 L53.2 85.2 M74.7 85.0 L72.4 79.5'/%3E%3Ccircle cx='90' cy='122' r='36'/%3E%3Cpath d='M68 120 C68 94 112 94 112 120 C112 130 107 134 105 138 L105 150 L75 150 L75 138 C73 134 68 130 68 120 Z'/%3E%3Ccircle cx='80' cy='121' r='6' fill='white'/%3E%3Ccircle cx='100' cy='121' r='6' fill='white'/%3E%3Cpath d='M90 128 L86 135 L94 135 Z' fill='white'/%3E%3Cpath d='M75 143 L105 143 M81 143 L81 150 M86 143 L86 150 M91 143 L91 150 M96 143 L96 150 M101 143 L101 150'/%3E%3Cpath d='M70 199 Q70 204 75 204 Q70 204 70 209 Q70 204 65 204 Q70 204 70 199 Z M90 198 Q90 204 96 204 Q90 204 90 210 Q90 204 84 204 Q90 204 90 198 Z M110 199 Q110 204 115 204 Q110 204 110 209 Q110 204 105 204 Q110 204 110 199 Z'/%3E%3C/g%3E%3Cg transform='translate%28180 0%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M90.0 74.0 L90.0 60.0 M101.4 75.5 L103.2 68.7 M112.0 79.9 L119.0 67.8 M121.1 86.9 L126.1 81.9 M128.1 96.0 L140.2 89.0 M132.5 106.6 L139.3 104.8 M134.0 118.0 L148.0 118.0 M132.5 129.4 L139.3 131.2 M128.1 140.0 L140.2 147.0 M121.1 149.1 L126.1 154.1 M112.0 156.1 L119.0 168.2 M101.4 160.5 L103.2 167.3 M90.0 162.0 L90.0 176.0 M78.6 160.5 L76.8 167.3 M68.0 156.1 L61.0 168.2 M58.9 149.1 L53.9 154.1 M51.9 140.0 L39.8 147.0 M47.5 129.4 L40.7 131.2 M46.0 118.0 L32.0 118.0 M47.5 106.6 L40.7 104.8 M51.9 96.0 L39.8 89.0 M58.9 86.9 L53.9 81.9 M68.0 79.9 L61.0 67.8 M78.6 75.5 L76.8 68.7'/%3E%3Cpath d='M90 70 L134 148 L46 148 Z'/%3E%3Cpath d='M66 124 Q90 102 114 124 Q90 146 66 124 Z'/%3E%3Ccircle cx='90' cy='124' r='8'/%3E%3Ccircle cx='90' cy='124' r='3.5' fill='white'/%3E%3Cpath d='M90 37 Q90 44 97 44 Q90 44 90 51 Q90 44 83 44 Q90 44 90 37 Z'/%3E%3Cpath d='M70 196 L110 212 M110 196 L70 212'/%3E%3Ccircle cx='68' cy='195' r='4'/%3E%3Ccircle cx='112' cy='195' r='4'/%3E%3C/g%3E%3Cg transform='translate%280 240%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M76 62 A40 40 0 1 0 122 128 A31 31 0 1 1 76 62 Z'/%3E%3Cpath d='M54 47 Q54 52 59 52 Q54 52 54 57 Q54 52 49 52 Q54 52 54 47 Z M128 40 Q128 46 134 46 Q128 46 128 52 Q128 46 122 46 Q128 46 128 40 Z M140 88 Q140 92 144 92 Q140 92 140 96 Q140 92 136 92 Q140 92 140 88 Z M44 100 Q44 104 48 104 Q44 104 44 108 Q44 104 40 104 Q44 104 44 100 Z M118 126.5 Q118 130 121.5 130 Q118 130 118 133.5 Q118 130 114.5 130 Q118 130 118 126.5 Z'/%3E%3Ccircle cx='96' cy='96' r='2' fill='white'/%3E%3Cpath d='M28 170 Q52 150 72 168 Q90 150 108 168 Q130 148 152 170'/%3E%3Cpath d='M34 200 Q47 194 60 200 T86 200 T112 200 T138 200 T150 200'/%3E%3Cpath d='M34 210 Q47 204 60 210 T86 210 T112 210 T138 210 T150 210'/%3E%3C/g%3E%3Cg transform='translate%28180 240%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Ccircle cx='90' cy='50' r='6'/%3E%3Cpath d='M86 56 L86 82 L94 82 L94 56 Z'/%3E%3Cpath d='M64 86 Q90 78 116 86 M64 86 L60 80 M116 86 L120 80'/%3E%3Cpath d='M83 90 L97 90 L90 176 Z'/%3E%3Cpath d='M90 94 L90 160'/%3E%3Cpath d='M74 166 C112 154 66 138 106 124 C122 118 116 104 104 106 C96 108 98 116 104 116'/%3E%3Ccircle cx='106' cy='110' r='1.6' fill='white'/%3E%3Cpath d='M40 120 L40 150 L48 150 L48 120 Z M44 120 Q38 110 44 102 Q50 110 44 120 Z'/%3E%3Cpath d='M132 120 L132 150 L140 150 L140 120 Z M136 120 Q130 110 136 102 Q142 110 136 120 Z'/%3E%3Cpath d='M90 198 L96 204 L90 210 L84 204 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 360px 480px;
 }
 
 /* The same grid in the logo's gradient, seen only where the glow drifts */
@@ -1960,9 +1960,9 @@ body.withSectionTabs .backgroundContainer::after,
     background: linear-gradient(120deg, #a62cf3, #6d4cff 40%, #2f6bff 70%, #14d0f0);
     opacity: 0.85;
     -webkit-mask-image:
-        url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='240' viewBox='0 0 180 240'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M84 40 A12 12 0 1 0 99 57 A9.5 9.5 0 1 1 84 40 Z'/%3E%3Cpath d='M90.0 82.0 L90.0 70.0 M105.3 85.0 L107.6 79.5 M118.3 93.7 L126.8 85.2 M127.0 106.7 L132.5 104.4 M130.0 122.0 L142.0 122.0 M50.0 122.0 L38.0 122.0 M53.0 106.7 L47.5 104.4 M61.7 93.7 L53.2 85.2 M74.7 85.0 L72.4 79.5'/%3E%3Ccircle cx='90' cy='122' r='36'/%3E%3Cpath d='M68 120 C68 94 112 94 112 120 C112 130 107 134 105 138 L105 150 L75 150 L75 138 C73 134 68 130 68 120 Z'/%3E%3Ccircle cx='80' cy='121' r='6' fill='black'/%3E%3Ccircle cx='100' cy='121' r='6' fill='black'/%3E%3Cpath d='M90 128 L86 135 L94 135 Z' fill='black'/%3E%3Cpath d='M75 143 L105 143 M81 143 L81 150 M86 143 L86 150 M91 143 L91 150 M96 143 L96 150 M101 143 L101 150'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M70 199 Q70 204 75 204 Q70 204 70 209 Q70 204 65 204 Q70 204 70 199 Z M90 198 Q90 204 96 204 Q90 204 90 210 Q90 204 84 204 Q90 204 90 198 Z M110 199 Q110 204 115 204 Q110 204 110 209 Q110 204 105 204 Q110 204 110 199 Z'/%3E%3C/g%3E%3C/svg%3E"),
+        url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='480' viewBox='0 0 360 480'%3E%3Cg fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate%280 0%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M84 40 A12 12 0 1 0 99 57 A9.5 9.5 0 1 1 84 40 Z'/%3E%3Cpath d='M90.0 82.0 L90.0 70.0 M105.3 85.0 L107.6 79.5 M118.3 93.7 L126.8 85.2 M127.0 106.7 L132.5 104.4 M130.0 122.0 L142.0 122.0 M50.0 122.0 L38.0 122.0 M53.0 106.7 L47.5 104.4 M61.7 93.7 L53.2 85.2 M74.7 85.0 L72.4 79.5'/%3E%3Ccircle cx='90' cy='122' r='36'/%3E%3Cpath d='M68 120 C68 94 112 94 112 120 C112 130 107 134 105 138 L105 150 L75 150 L75 138 C73 134 68 130 68 120 Z'/%3E%3Ccircle cx='80' cy='121' r='6' fill='black'/%3E%3Ccircle cx='100' cy='121' r='6' fill='black'/%3E%3Cpath d='M90 128 L86 135 L94 135 Z' fill='black'/%3E%3Cpath d='M75 143 L105 143 M81 143 L81 150 M86 143 L86 150 M91 143 L91 150 M96 143 L96 150 M101 143 L101 150'/%3E%3Cpath d='M70 199 Q70 204 75 204 Q70 204 70 209 Q70 204 65 204 Q70 204 70 199 Z M90 198 Q90 204 96 204 Q90 204 90 210 Q90 204 84 204 Q90 204 90 198 Z M110 199 Q110 204 115 204 Q110 204 110 209 Q110 204 105 204 Q110 204 110 199 Z'/%3E%3C/g%3E%3Cg transform='translate%28180 0%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M90.0 74.0 L90.0 60.0 M101.4 75.5 L103.2 68.7 M112.0 79.9 L119.0 67.8 M121.1 86.9 L126.1 81.9 M128.1 96.0 L140.2 89.0 M132.5 106.6 L139.3 104.8 M134.0 118.0 L148.0 118.0 M132.5 129.4 L139.3 131.2 M128.1 140.0 L140.2 147.0 M121.1 149.1 L126.1 154.1 M112.0 156.1 L119.0 168.2 M101.4 160.5 L103.2 167.3 M90.0 162.0 L90.0 176.0 M78.6 160.5 L76.8 167.3 M68.0 156.1 L61.0 168.2 M58.9 149.1 L53.9 154.1 M51.9 140.0 L39.8 147.0 M47.5 129.4 L40.7 131.2 M46.0 118.0 L32.0 118.0 M47.5 106.6 L40.7 104.8 M51.9 96.0 L39.8 89.0 M58.9 86.9 L53.9 81.9 M68.0 79.9 L61.0 67.8 M78.6 75.5 L76.8 68.7'/%3E%3Cpath d='M90 70 L134 148 L46 148 Z'/%3E%3Cpath d='M66 124 Q90 102 114 124 Q90 146 66 124 Z'/%3E%3Ccircle cx='90' cy='124' r='8'/%3E%3Ccircle cx='90' cy='124' r='3.5' fill='black'/%3E%3Cpath d='M90 37 Q90 44 97 44 Q90 44 90 51 Q90 44 83 44 Q90 44 90 37 Z'/%3E%3Cpath d='M70 196 L110 212 M110 196 L70 212'/%3E%3Ccircle cx='68' cy='195' r='4'/%3E%3Ccircle cx='112' cy='195' r='4'/%3E%3C/g%3E%3Cg transform='translate%280 240%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Cpath d='M76 62 A40 40 0 1 0 122 128 A31 31 0 1 1 76 62 Z'/%3E%3Cpath d='M54 47 Q54 52 59 52 Q54 52 54 57 Q54 52 49 52 Q54 52 54 47 Z M128 40 Q128 46 134 46 Q128 46 128 52 Q128 46 122 46 Q128 46 128 40 Z M140 88 Q140 92 144 92 Q140 92 140 96 Q140 92 136 92 Q140 92 140 88 Z M44 100 Q44 104 48 104 Q44 104 44 108 Q44 104 40 104 Q44 104 44 100 Z M118 126.5 Q118 130 121.5 130 Q118 130 118 133.5 Q118 130 114.5 130 Q118 130 118 126.5 Z'/%3E%3Ccircle cx='96' cy='96' r='2' fill='black'/%3E%3Cpath d='M28 170 Q52 150 72 168 Q90 150 108 168 Q130 148 152 170'/%3E%3Cpath d='M34 200 Q47 194 60 200 T86 200 T112 200 T138 200 T150 200'/%3E%3Cpath d='M34 210 Q47 204 60 210 T86 210 T112 210 T138 210 T150 210'/%3E%3C/g%3E%3Cg transform='translate%28180 240%29'%3E%3Crect x='12' y='10' width='156' height='220' rx='9'/%3E%3Crect x='20' y='18' width='140' height='204' rx='5'/%3E%3Cpath d='M30 24 L34 28 L30 32 L26 28 Z M150 24 L154 28 L150 32 L146 28 Z M30 208 L34 212 L30 216 L26 212 Z M150 208 L154 212 L150 216 L146 212 Z'/%3E%3Cpath d='M46 184 L134 184 M52 190 L128 190'/%3E%3Ccircle cx='90' cy='50' r='6'/%3E%3Cpath d='M86 56 L86 82 L94 82 L94 56 Z'/%3E%3Cpath d='M64 86 Q90 78 116 86 M64 86 L60 80 M116 86 L120 80'/%3E%3Cpath d='M83 90 L97 90 L90 176 Z'/%3E%3Cpath d='M90 94 L90 160'/%3E%3Cpath d='M74 166 C112 154 66 138 106 124 C122 118 116 104 104 106 C96 108 98 116 104 116'/%3E%3Ccircle cx='106' cy='110' r='1.6' fill='black'/%3E%3Cpath d='M40 120 L40 150 L48 150 L48 120 Z M44 120 Q38 110 44 102 Q50 110 44 120 Z'/%3E%3Cpath d='M132 120 L132 150 L140 150 L140 120 Z M136 120 Q130 110 136 102 Q142 110 136 120 Z'/%3E%3Cpath d='M90 198 L96 204 L90 210 L84 204 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
         radial-gradient(circle at center, #000 0%, rgba(0, 0, 0, 0.45) 30%, transparent 65%);
-    -webkit-mask-size: 180px 240px, 80vmax 80vmax;
+    -webkit-mask-size: 360px 480px, 80vmax 80vmax;
     -webkit-mask-repeat: repeat, no-repeat;
     -webkit-mask-position: 0 0, 10% 15%;
     -webkit-mask-composite: source-in;
@@ -2027,12 +2027,12 @@ body:not(.withSectionTabs) .backdropContainer {
     left: 26vw !important;
     width: 74vw !important;
     -webkit-mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 18%, #000 42%),
-        linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%) !important;
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 20%, #000 50%),
+        linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%) !important;
     -webkit-mask-composite: source-in !important;
     mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.55) 18%, #000 42%),
-        linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%) !important;
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 20%, #000 50%),
+        linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%) !important;
     mask-composite: intersect !important;
 }
 
@@ -2151,4 +2151,51 @@ body.withSectionTabs .backgroundContainer::after,
     backdrop-filter: blur(22px) saturate(1.6) !important;
     -webkit-backdrop-filter: blur(22px) saturate(1.6) !important;
     box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.14), 0 8px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Item pages: Jellyfin keeps rotating random backdrops on the home screen,
+   and the last one lingers for a moment after you open a title, until the
+   title's own artwork has loaded. Keep the background hidden for that
+   moment, show the right image as soon as it arrives (no slow fade), and
+   drop any image Jellyfin is replacing. */
+body:not(.withSectionTabs) .backdropContainer {
+    animation: lb-backdrop-in 1.6s ease both;
+}
+
+body:not(.withSectionTabs) .backdropImageFadeIn {
+    animation: none !important;
+    opacity: 1 !important;
+}
+
+.backdropContainer > .backdropImage:not(.displayingBackdropImage) {
+    display: none !important;
+}
+
+@keyframes lb-backdrop-in {
+    0%, 72% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* With Settings > Display > Backdrops turned off, Jellyfin puts the title's
+   artwork straight into the page (no rotating backdrops, so never the wrong
+   one). Lay it out exactly like the backdrop version: on the right, fading
+   in from the left and out at the bottom, without changing the page flow. */
+.layout-desktop .itemDetailPage .itemBackdrop {
+    height: 80vh !important;
+    margin-bottom: -46vh !important;
+    margin-left: 26vw !important;
+    width: 74vw !important;
+    background-attachment: scroll !important;
+    background-position: center top !important;
+    background-size: cover !important;
+    pointer-events: none;
+    -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 20%, #000 50%),
+        linear-gradient(to bottom, #000 0%, #000 40%, transparent 100%);
+    -webkit-mask-composite: source-in;
+}
+
+.layout-desktop .itemDetailPage .detailPageWrapperContainer {
+    position: relative;
+    z-index: 1;
 }
