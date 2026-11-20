@@ -2196,10 +2196,17 @@ body:not(.withSectionTabs) .backdropImageFadeIn {
     position: relative;
     isolation: isolate;
     margin: 0.4em 0 1.6em !important;
-    padding: 1.4em 0 0.5em !important;
+    padding: 3.6em 0 2.4em !important;
 }
 
-/* The band: logo gradient, a soft sheen, glowing edges, faded at the sides */
+/* Arrow buttons sit in the band above the banners, not over them */
+.homeSectionsContainer > .section0 .emby-scrollbuttons {
+    top: 0.7em !important;
+    padding-top: 0 !important;
+}
+
+/* The band: deep overlapping glows in the logo's colours on a dark base,
+   faded softly at every edge (no white, no hard lines) */
 .homeSectionsContainer > .section0::before {
     content: "";
     position: absolute;
@@ -2210,19 +2217,24 @@ body:not(.withSectionTabs) .backdropImageFadeIn {
     z-index: -1;
     pointer-events: none;
     background:
-        linear-gradient(115deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.07) 45%, rgba(255, 255, 255, 0) 60%),
-        radial-gradient(ellipse 60% 120% at 15% 50%, rgba(166, 44, 243, 0.38), transparent 70%),
-        radial-gradient(ellipse 60% 120% at 85% 50%, rgba(20, 208, 240, 0.28), transparent 70%),
-        linear-gradient(90deg, rgba(166, 44, 243, 0.22), rgba(47, 107, 255, 0.16) 50%, rgba(20, 208, 240, 0.2));
-    box-shadow:
-        inset 0 1px 0 rgba(190, 160, 255, 0.55),
-        inset 0 -1px 0 rgba(120, 220, 255, 0.45),
-        0 0 40px rgba(109, 76, 255, 0.25);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+        radial-gradient(ellipse 45% 140% at 12% 60%, rgba(166, 44, 243, 0.55), transparent 70%),
+        radial-gradient(ellipse 40% 120% at 45% 30%, rgba(80, 60, 230, 0.45), transparent 70%),
+        radial-gradient(ellipse 45% 140% at 78% 65%, rgba(20, 150, 220, 0.45), transparent 70%),
+        radial-gradient(ellipse 35% 120% at 98% 40%, rgba(20, 208, 240, 0.35), transparent 70%),
+        linear-gradient(90deg, #12072a, #0b0d2e 50%, #061a2a);
+    -webkit-mask-image:
+        linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%),
+        linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
 }
 
-/* Banner names sit lighter so the art leads */
+/* Channel names hidden: the banners already say what they are */
+.homeSectionsContainer > .section0 .cardFooter,
 .homeSectionsContainer > .section0 .cardText {
-    color: rgba(255, 255, 255, 0.85) !important;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    display: none !important;
 }
+
+.homeSectionsContainer > .section0 .cardBox-bottompadded {
+    margin-bottom: 0 !important;
+}
+
